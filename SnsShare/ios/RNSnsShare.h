@@ -7,5 +7,8 @@
 
 @interface RNSnsShare : NSObject <RCTBridgeModule>
 
+
+
+
 @end
   

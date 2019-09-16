@@ -10,7 +10,7 @@
   "keywords": [
     "react-native"
   ],
-  "author": "",
+  "author": "Evan Xiao",
   "license": "",
   "peerDependencies": {
     "react-native": "^0.41.2"
