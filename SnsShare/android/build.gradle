@@ -16,7 +16,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 16compile
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -32,5 +32,5 @@ repositories {
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }
-  

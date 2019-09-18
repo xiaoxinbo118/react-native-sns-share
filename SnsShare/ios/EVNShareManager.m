@@ -104,6 +104,8 @@
     } else {
       self.commpletion(code, [NSError errorWithDomain:@"share" code:resp.errCode userInfo:nil]);;
     }
+    
+    self.commpletion = nil;
   }
 }
 
