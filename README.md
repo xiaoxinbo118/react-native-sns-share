@@ -23,6 +23,6 @@ import Sns from './src/react-native-sns-share/index'
 
 // 项目启动时，注册微信信息
 Sns.snsSocial.registerApp({
-  'wechart': 'wxc9e5245993bab87d'
+  'wechart': 'wxxxxxxxxx'
 });
 ```
