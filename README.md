@@ -9,6 +9,8 @@ RN微信、微博、QQ分享插件。
 |QQ           |  ×          | ×           | ×           |
 |微博          |  ×          | ×           | ×           |
 
+PS：未支持部分，会在后续迭代中完成。
+
  ## 一. 起步
  
  1. 执行: `$ npm install --save react-native-npm-share --save`
@@ -18,7 +20,13 @@ RN微信、微博、QQ分享插件。
  ### iOS
  1. 进入ios目录
  2. 执行: `$ pod update`
- 3.
+ 
+ #### 微信设置
+ 1. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“URL type“添加“URL scheme”为你所注册的应用程序id（如下图所示）。
+ ![xcode设置](https://res.wx.qq.com/op_res/qXIS1XaeAWkQxAJeyFfJPNQUfzVWbPnyqeYUTl3Q3rW1j29j5eQn4xaUNYXErjql)
+ 2. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“LSApplicationQueriesSchemes“添加weixin（如下图所示）。
+ 
+ ![xcode设置](http://mmbiz.qpic.cn/mmbiz_png/PiajxSqBRaEJsqKkSJGg4TLAxEIvWjtTfrHSbhE3zfbPzuuGzadu9FsWJuBNELsk1IuQucfx91ialTfpPhAF0grA/0?wx_fmt=png)
  
  ### Android
  
