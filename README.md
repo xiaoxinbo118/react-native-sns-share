@@ -29,6 +29,30 @@ PS：未支持部分，会在后续迭代中完成。
  ![xcode设置](http://mmbiz.qpic.cn/mmbiz_png/PiajxSqBRaEJsqKkSJGg4TLAxEIvWjtTfrHSbhE3zfbPzuuGzadu9FsWJuBNELsk1IuQucfx91ialTfpPhAF0grA/0?wx_fmt=png)
  
  ### Android
+ 确认MainApplication，getPackages中是否已经加入RNSnsSharePackage。
+ 若没有加入,getPackages中加入 packages.add(new RNSnsSharePackage());
+  ```java
+    @Override
+    protected List<ReactPackage> getPackages() {
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for example:
+      // packages.add(new MyReactNativePackage());
+      packages.add(new RNSnsSharePackage());
+      return packages;
+    }
+```
+ #### 微信设置
+ AndroidManifest.xml中设置
+ ```xml
+         <!--微信开始-->
+        <activity
+            android:name="com.evan.sns.share.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoDisplay" />
+        <!--微信结束-->
+ ```
  
  ## 二. 使用
  
