@@ -18,7 +18,7 @@
 }
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(registerWXApp:(NSString *)appId) {
+RCT_EXPORT_METHOD(registerApp:(NSString *)appId) {
   [[EVNWXManager defaultManager] registerApp:appId];
   [[EVNWXManager defaultManager] setMessageDelegate:[EVNShareManager defaultManager]];
 }
