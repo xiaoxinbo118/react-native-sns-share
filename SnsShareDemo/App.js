@@ -17,15 +17,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
 import Sns from 'react-native-sns-share'
+import {
+  Colors,
+} from 'react-native/Libraries/NewAppScreen';
 
 class App extends Component {
 
@@ -46,6 +41,20 @@ class App extends Component {
 
   }
 
+  renderButton(title, type) {
+    return (
+
+        <TouchableOpacity activeOpacity={0.8} onPress={this.share.bind(this, type)}>
+          <View style={styles.button}>
+            <Text style={styles.title}>
+              {title}
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+      )
+  }
+
   render() {
     const types = Sns.snsShare.TYPES;
     return (
@@ -55,49 +64,13 @@ class App extends Component {
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             style={styles.scrollView}>
-
-            <Header />
-            {global.HermesInternal == null ? null : (
-              <View style={styles.engine}>
-                <Text style={styles.footer}>Engine: Hermes</Text>
-              </View>
-            )}
-
-            <TouchableOpacity activeOpacity={0.8} onPress={this.share.bind(this, types.WECHAT_SESSION)}>
-              <View>
-                <Text>
-                分享微信好友
-                </Text>
-              </View>
-            </TouchableOpacity>
-
-            <View style={styles.body}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Step One</Text>
-                <Text style={styles.sectionDescription}>
-                  Edit <Text style={styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-                </Text>
-              </View>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>See Your Changes</Text>
-                <Text style={styles.sectionDescription}>
-                  <ReloadInstructions />
-                </Text>
-              </View>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Debug</Text>
-                <Text style={styles.sectionDescription}>
-                  <DebugInstructions />
-                </Text>
-              </View>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Learn More</Text>
-                <Text style={styles.sectionDescription}>
-                  Read the docs to discover what to do next:
-                </Text>
-              </View>
-              <LearnMoreLinks />
+            <View style={styles.content}>
+            {
+              this.renderButton('分享微信好友', types.WECHAT_SESSION)
+            }
+            {
+              this.renderButton('分享朋友圈', types.WECHAT_TIMELINE)
+            }
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -109,40 +82,29 @@ class App extends Component {
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
+
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  content: {
+    paddingTop: 100,
+    paddingLeft: 30,
+    paddingRight: 30,
   },
   body: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.lighter,
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  button: {
+    backgroundColor: '#e62117',
+    height: 44,
+    width: '100%',
+    borderRadius: 20,
+    marginBottom: 25,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+  title: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+    lineHeight: 44,
+  }
 });
 
 export default App;
