@@ -1,8 +1,15 @@
 # react-native-sns-share
-RN微信、微博、QQ分享插件
+RN微信、微博、QQ分享插件。
+暂时支持情况
 
 
- ## 起步
+|             | 分享         | 授权登陆     | 支付         |
+| ----------- | ----------- | ----------- | ----------- |
+|微信          | ✔           | ×           | ×           |
+|QQ           |  ×          | ×           | ×           |
+|微博          |  ×          | ×           | ×           |
+
+ ## 一. 起步
  
  1. 执行: `$ npm install --save react-native-npm-share --save`
  2. 执行: `$ react-native link react-native-sns-share`
@@ -15,7 +22,7 @@ RN微信、微博、QQ分享插件
  
  ### Android
  
- ## 使用
+ ## 二. 使用
  
  1. 注册App
  ```js
