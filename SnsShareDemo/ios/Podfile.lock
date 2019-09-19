@@ -86,7 +86,7 @@ PODS:
   - SDWebImage (5.1.1):
     - SDWebImage/Core (= 5.1.1)
   - SDWebImage/Core (5.1.1)
-  - WechatOpenSDK (1.8.4)
+  - WechatOpenSDK (1.8.5)
   - yoga (0.60.5.React)
 
 DEPENDENCIES:
@@ -189,9 +189,9 @@ SPEC CHECKSUMS:
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
   RNSnsShare: fbea9b368eea342cc2bc33cab5f42714e448bf9a
   SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
-  WechatOpenSDK: 9b721089507c895d05f997408c30bb6e6f5f9b60
+  WechatOpenSDK: 9b15110aba1d502456d8e83677357e6437f2e751
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: 847a7596ef31757e2269a7451a34d7f9222907d1
+PODFILE CHECKSUM: 40a0464d7bdc3ea8d2d3f432789863d9e15fc1d4
 
 COCOAPODS: 1.7.5

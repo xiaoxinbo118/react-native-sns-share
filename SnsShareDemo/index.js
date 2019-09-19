@@ -11,5 +11,4 @@ import Sns from 'react-native-sns-share'
 Sns.snsSocial.registerApp({
   'wechart': 'wxc9e5245993bab87d'
 });
-
 AppRegistry.registerComponent(appName, () => App);

@@ -21,6 +21,13 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+        <!--微信分享开始-->
+        <activity
+            android:name="com.evan.sns.share.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoDisplay" />
+        <!--微信分享结束-->
     </application>
 
 </manifest>

@@ -25,7 +25,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Sns from 'react-native-sns-share/index'
+import Sns from 'react-native-sns-share'
 
 class App extends Component {
 
