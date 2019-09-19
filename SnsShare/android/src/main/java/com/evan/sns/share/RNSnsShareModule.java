@@ -1,10 +1,11 @@
 
 package com.evan.sns.share;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
+
 
 public class RNSnsShareModule extends ReactContextBaseJavaModule {
 
@@ -13,6 +14,33 @@ public class RNSnsShareModule extends ReactContextBaseJavaModule {
   public RNSnsShareModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
+  }
+
+  @ReactMethod
+  public void share(int shareType,
+                    String webpageUrl,
+                    String title,
+                    String description,
+                    String imageUrl,
+                    Promise promise) {
+    ShareEntity entity = new ShareEntity();
+    entity.setWebPageUrl(webpageUrl);
+    entity.setTitle(title);
+    entity.setDesc(description);
+    entity.setThumb(imageUrl);
+    entity.setType(shareType);
+    final Promise fPomise = promise;
+    ShareManager.getInstance().share(entity, new AsyncWorkHandler() {
+      @Override
+      public void onSuccess() {
+        fPomise.resolve(true);
+      }
+
+      @Override
+      public void onError(int code, String message) {
+        fPomise.reject(code + "", message);
+      }
+    });
   }
 
   @Override

@@ -1,0 +1,5 @@
+rootProject.name = 'SnsShareDemo'
+include ':react-native-sns-share'
+project(':react-native-sns-share').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sns-share/android')
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6364AC53232F9E6400990E0C /* EVNShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364AC4C232F9E6300990E0C /* EVNShareModel.m */; };
+		6364AC54232F9E6400990E0C /* EVNShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364AC4D232F9E6300990E0C /* EVNShareManager.m */; };
+		6364AC55232F9E6400990E0C /* EVNWXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364AC4E232F9E6300990E0C /* EVNWXManager.m */; };
+		6364AC56232F9E6400990E0C /* RNSnsSocial.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364AC4F232F9E6300990E0C /* RNSnsSocial.m */; };
 		B3E7B58A1CC2AC0600A0062D /* RNSnsShare.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNSnsShare.m */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +28,14 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNSnsShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNSnsShare.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6364AC4B232F9E6300990E0C /* EVNShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVNShareModel.h; sourceTree = "<group>"; };
+		6364AC4C232F9E6300990E0C /* EVNShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVNShareModel.m; sourceTree = "<group>"; };
+		6364AC4D232F9E6300990E0C /* EVNShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVNShareManager.m; sourceTree = "<group>"; };
+		6364AC4E232F9E6300990E0C /* EVNWXManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVNWXManager.m; sourceTree = "<group>"; };
+		6364AC4F232F9E6300990E0C /* RNSnsSocial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSnsSocial.m; sourceTree = "<group>"; };
+		6364AC50232F9E6400990E0C /* EVNWXManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVNWXManager.h; sourceTree = "<group>"; };
+		6364AC51232F9E6400990E0C /* EVNShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVNShareManager.h; sourceTree = "<group>"; };
+		6364AC52232F9E6400990E0C /* RNSnsSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSnsSocial.h; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNSnsShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSnsShare.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNSnsShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSnsShare.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,6 +62,14 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				6364AC51232F9E6400990E0C /* EVNShareManager.h */,
+				6364AC4D232F9E6300990E0C /* EVNShareManager.m */,
+				6364AC4B232F9E6300990E0C /* EVNShareModel.h */,
+				6364AC4C232F9E6300990E0C /* EVNShareModel.m */,
+				6364AC50232F9E6400990E0C /* EVNWXManager.h */,
+				6364AC4E232F9E6300990E0C /* EVNWXManager.m */,
+				6364AC52232F9E6400990E0C /* RNSnsSocial.h */,
+				6364AC4F232F9E6300990E0C /* RNSnsSocial.m */,
 				B3E7B5881CC2AC0600A0062D /* RNSnsShare.h */,
 				B3E7B5891CC2AC0600A0062D /* RNSnsShare.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -95,6 +115,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
@@ -112,7 +133,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6364AC55232F9E6400990E0C /* EVNWXManager.m in Sources */,
+				6364AC56232F9E6400990E0C /* RNSnsSocial.m in Sources */,
+				6364AC54232F9E6400990E0C /* EVNShareManager.m in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* RNSnsShare.m in Sources */,
+				6364AC53232F9E6400990E0C /* EVNShareModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,7 +229,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-				"$(inherited)",
+					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",

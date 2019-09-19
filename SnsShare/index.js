@@ -1,6 +1,7 @@
+import SnsShare from './snsShare';
+import SnsSocial from './snsSocial';
 
-import { NativeModules } from 'react-native';
-
-const { RNSnsShare } = NativeModules;
-
-export default RNSnsShare;
+export default {
+  snsShare,
+  snsSocial
+};
