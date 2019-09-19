@@ -58,10 +58,30 @@ PS：未支持部分，会在后续迭代中完成。
  
  1. 注册App
  ```js
-import Sns from './src/react-native-sns-share/index'
+import Sns from 'react-native-sns-share'
 
 // 项目启动时，注册微信信息
 Sns.snsSocial.registerApp({
   'wechart': 'wxxxxxxxxx'
 });
 ```
+2. 分享调用
+ ```js
+ import Sns from 'src/react-native-sns-share'
+ 
+     const types = Sns.snsShare.TYPES;
+     Sns.snsShare.share({
+      webpageUrl: 'https://www.baidu.com',
+      title: '分享一下',
+      description: '分享就用我',
+      imageUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568635646029&di=4f86fc970153b638fd4a404e2a780ed0&imgtype=0&src=http%3A%2F%2Fwww.cnr.cn%2Fjingji%2Ftxcj%2F20160727%2FW020160727318839106051.jpg',
+      shareType: types.WECHAT_SESSION
+      })
+    .then(() => {
+        console.log('wx share success');
+      })
+    .catch((error) => {
+        console.log(error);
+      })
+      
+ ```
