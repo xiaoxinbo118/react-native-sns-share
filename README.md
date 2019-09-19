@@ -87,7 +87,8 @@ Sns.snsSocial.registerApp({
       
  ```
 types常量表
-|             |          | 
+
+|    变量         |  含义        | 
 | ----------- | ----------- |
 |WECHAT_SESSION| 微信好友          | 
 |WECHAT_TIMELINE| 微信朋友圈          | 
