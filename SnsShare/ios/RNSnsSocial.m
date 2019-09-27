@@ -9,6 +9,7 @@
 #import "RNSnsSocial.h"
 #import "EVNWXManager.h"
 #import "EVNShareManager.h"
+#import "EVNPaymentManager.h"
 
 @implementation RNSnsSocial
 
@@ -18,9 +19,14 @@
 }
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(registerApp:(NSString *)appId) {
-  [[EVNWXManager defaultManager] registerApp:appId];
-  [[EVNWXManager defaultManager] setMessageDelegate:[EVNShareManager defaultManager]];
+RCT_EXPORT_METHOD(registerApp:(NSDictionary *)appIds) {
+  NSString *wxAppId = [appIds valueForKey:@"wechart"];
+  if (wxAppId) {
+    [[EVNWXManager defaultManager] registerApp:wxAppId];
+    [[EVNWXManager defaultManager] setMessageDelegate:[EVNShareManager defaultManager]];
+    [[EVNWXManager defaultManager] setPaymentDelegate:[EVNPaymentManager defaultManager]];
+  }
+ 
 }
 
 @end

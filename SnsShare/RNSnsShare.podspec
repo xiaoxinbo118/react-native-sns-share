@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RNSnsShare"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "react-native-sns-share libary for weixin/weibo/qq share"
   s.description  = <<-DESC
                   react-native-sns-share
@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
   s.dependency "React"
   s.dependency 'SDWebImage', '~> 5.0'
   s.dependency 'WechatOpenSDK'
-
+  s.dependency 'AliPay'
 end

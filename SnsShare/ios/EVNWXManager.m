@@ -45,19 +45,19 @@
 {
   BOOL isSuccess = [WXApi handleOpenURL:url delegate:self];
   if (isSuccess) {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayCheckAlipaySDKCallbacks) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayCheckCallbacks) object:nil];
   }
   NSLog(@"url %@ isSuccess %d",url,isSuccess == YES ? 1 : 0);
   return  isSuccess;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-  SEL sel = @selector(delayCheckAlipaySDKCallbacks);
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayCheckAlipaySDKCallbacks) object:nil];
+  SEL sel = @selector(delayCheckCallbacks);
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayCheckCallbacks) object:nil];
   [self performSelector:sel withObject:nil afterDelay:2];
 }
 
-- (void)delayCheckAlipaySDKCallbacks {
+- (void)delayCheckCallbacks {
   
   //需要分别模仿
   [_reqQueue enumerateObjectsUsingBlock:^(BaseReq *req, NSUInteger idx, BOOL *stop) {
@@ -77,13 +77,13 @@
       [self.messageDelegate onResp:res];
     }
     else if ([req isKindOfClass:[LaunchFromWXReq class]]) {
-      //            [self.messageDelegate onReq:req];
+      [self.messageDelegate onReq:req];
     }
-//    else if ([req isKindOfClass:[PayReq class]]) {
-//      PayResp *res = [[PayResp alloc] init];
-//      res.errCode = -2;
-//      [self.paymentDelegate onResp:res];
-//    }
+    else if ([req isKindOfClass:[PayReq class]]) {
+      PayResp *res = [[PayResp alloc] init];
+      res.errCode = -2;
+      [self.paymentDelegate onResp:res];
+    }
 //    else if ([req isKindOfClass:[SendAuthReq class]]) {
 //      SendAuthResp *res = [[SendAuthResp alloc] init];
 //      res.errCode = -2;
@@ -95,17 +95,12 @@
 }
 
 #pragma mark - WXAPI
-- (BOOL)sendReq:(BaseReq*)req {
-  BOOL result = [WXApi sendReq:req];
-  if (result) {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayCheckAlipaySDKCallbacks) object:nil];
-    [_reqQueue addObject:req];
-  }
-  return result;
+- (void)sendReq:(BaseReq*)req completion:(void (^ __nullable)(BOOL success))completion {
+  [WXApi sendReq:req completion:completion];
 }
 
 - (BOOL)registerApp:(NSString *)appid {
-  return [WXApi registerApp:appid];
+  return [WXApi registerApp:appid universalLink:@""];
 }
 
 /*! @brief 检查微信是否已被用户安装
@@ -146,6 +141,29 @@
  */
 - (BOOL)openWXApp {
   return [WXApi openWXApp];
+}
+
+/*! @brief 发送一个sendReq后，收到微信的回应
+ *
+ * 收到一个来自微信的处理结果。调用一次sendReq后会收到onResp。
+ * 可能收到的处理结果有SendMessageToWXResp、SendAuthResp等。
+ * @param resp具体的回应内容，是自动释放的
+ */
+- (void)onResp:(BaseResp*)resp {
+  if ([resp isKindOfClass:[SendMessageToWXResp class]]
+      || [resp isKindOfClass:[GetMessageFromWXResp class]]
+      || [resp isKindOfClass:[ShowMessageFromWXResp class]]) {
+    [self.messageDelegate onResp:resp];
+  }
+  else if ([resp isKindOfClass:[PayResp class]]) {
+    [self.paymentDelegate onResp:resp];
+  }
+//  else if ([resp isKindOfClass:[SendAuthResp class]]) {
+//    [self.authDelegate onResp:resp];
+//  }
+  
+  //移除最后一个
+  [_reqQueue removeLastObject];
 }
 
 @end

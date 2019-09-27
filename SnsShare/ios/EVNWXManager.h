@@ -30,6 +30,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic,weak) id<WXApiDelegate> messageDelegate;//分享相关委托
 
+/**
+ *  分享相关委托，处理：
+ *  SendMessageToWXReq/SendMessageToWXResp
+ *  GetMessageFromWXReq/GetMessageFromWXResp
+ *  ShowMessageFromWXReq/ShowMessageFromWXResp
+ *  LaunchFromWXReq
+ *  请求或相应消息类型
+ */
+@property (nonatomic,weak) id<WXApiDelegate> paymentDelegate;//分享相关委托
+
 /*! @brief WXApi的成员函数，向微信终端程序注册第三方应用。
  *
  * 需要在每次启动第三方应用程序时调用。第一次调用后，会在微信的可用应用列表中出现，默认开启MTA数据上报。
@@ -75,9 +85,9 @@ NS_ASSUME_NONNULL_BEGIN
  * 函数调用后，会切换到微信的界面。第三方应用程序等待微信返回onResp。微信在异步处理完成后一定会调用onResp。支持以下类型
  * SendMessageToWXReq。
  * @param req 具体的发送请求，在调用函数后，请自己释放。
- * @return 成功返回YES，失败返回NO。
+ * @param completion 成功返回YES，失败返回NO。
  */
-- (BOOL)sendReq:(BaseReq*)req;
+- (void)sendReq:(BaseReq*)req completion:(void (^ __nullable)(BOOL success))completion;
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options;
 - (void)applicationWillEnterForeground:(UIApplication *)application;

@@ -76,12 +76,12 @@
 
         req.message = message;
 
-        BOOL result = [[EVNWXManager defaultManager] sendReq:req];
-        
-        
-        if (!result) {
-          commpletion(@"-3", [NSError errorWithDomain:@"snsShare" code:-3 userInfo:@{NSLocalizedDescriptionKey : @"check image size or other params"}]);
-        }
+        [[EVNWXManager defaultManager] sendReq:req completion:^(BOOL success) {
+          if (!success) {
+            commpletion(@"-3", [NSError errorWithDomain:@"snsShare" code:-3 userInfo:@{NSLocalizedDescriptionKey : @"check image size or other params"}]);
+            self.commpletion = nil;
+          }
+        }];
       } else {
         commpletion([NSString stringWithFormat:@"%ld", (long)error.code], error);
       }
@@ -100,7 +100,7 @@
   if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
     NSString *code = [NSString stringWithFormat:@"%@", @(resp.errCode)];
     if (resp.errCode == 0) {
-      self.commpletion(0, nil);
+      self.commpletion(@"0", nil);
     } else {
       self.commpletion(code, [NSError errorWithDomain:@"share" code:resp.errCode userInfo:nil]);;
     }

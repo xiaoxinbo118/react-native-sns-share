@@ -11,6 +11,9 @@
 		6364AC54232F9E6400990E0C /* EVNShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364AC4D232F9E6300990E0C /* EVNShareManager.m */; };
 		6364AC55232F9E6400990E0C /* EVNWXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364AC4E232F9E6300990E0C /* EVNWXManager.m */; };
 		6364AC56232F9E6400990E0C /* RNSnsSocial.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364AC4F232F9E6300990E0C /* RNSnsSocial.m */; };
+		63FAA478233E052800BCCA88 /* RNSnsPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAA472233E052800BCCA88 /* RNSnsPayment.m */; };
+		63FAA479233E052800BCCA88 /* EVNPaymentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAA476233E052800BCCA88 /* EVNPaymentManager.m */; };
+		63FAA47A233E052800BCCA88 /* EVNAliManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FAA477233E052800BCCA88 /* EVNAliManager.m */; };
 		B3E7B58A1CC2AC0600A0062D /* RNSnsShare.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNSnsShare.m */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,12 @@
 		6364AC50232F9E6400990E0C /* EVNWXManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVNWXManager.h; sourceTree = "<group>"; };
 		6364AC51232F9E6400990E0C /* EVNShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVNShareManager.h; sourceTree = "<group>"; };
 		6364AC52232F9E6400990E0C /* RNSnsSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSnsSocial.h; sourceTree = "<group>"; };
+		63FAA472233E052800BCCA88 /* RNSnsPayment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSnsPayment.m; sourceTree = "<group>"; };
+		63FAA473233E052800BCCA88 /* EVNAliManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVNAliManager.h; sourceTree = "<group>"; };
+		63FAA474233E052800BCCA88 /* RNSnsPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSnsPayment.h; sourceTree = "<group>"; };
+		63FAA475233E052800BCCA88 /* EVNPaymentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVNPaymentManager.h; sourceTree = "<group>"; };
+		63FAA476233E052800BCCA88 /* EVNPaymentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVNPaymentManager.m; sourceTree = "<group>"; };
+		63FAA477233E052800BCCA88 /* EVNAliManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVNAliManager.m; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNSnsShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSnsShare.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNSnsShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSnsShare.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,6 +71,12 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				63FAA473233E052800BCCA88 /* EVNAliManager.h */,
+				63FAA477233E052800BCCA88 /* EVNAliManager.m */,
+				63FAA475233E052800BCCA88 /* EVNPaymentManager.h */,
+				63FAA476233E052800BCCA88 /* EVNPaymentManager.m */,
+				63FAA474233E052800BCCA88 /* RNSnsPayment.h */,
+				63FAA472233E052800BCCA88 /* RNSnsPayment.m */,
 				6364AC51232F9E6400990E0C /* EVNShareManager.h */,
 				6364AC4D232F9E6300990E0C /* EVNShareManager.m */,
 				6364AC4B232F9E6300990E0C /* EVNShareModel.h */,
@@ -134,8 +149,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6364AC55232F9E6400990E0C /* EVNWXManager.m in Sources */,
+				63FAA478233E052800BCCA88 /* RNSnsPayment.m in Sources */,
 				6364AC56232F9E6400990E0C /* RNSnsSocial.m in Sources */,
 				6364AC54232F9E6400990E0C /* EVNShareManager.m in Sources */,
+				63FAA47A233E052800BCCA88 /* EVNAliManager.m in Sources */,
+				63FAA479233E052800BCCA88 /* EVNPaymentManager.m in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* RNSnsShare.m in Sources */,
 				6364AC53232F9E6400990E0C /* EVNShareModel.m in Sources */,
 			);
