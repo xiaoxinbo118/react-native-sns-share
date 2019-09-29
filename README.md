@@ -106,3 +106,43 @@ types常量表
 |WECHAT_TIMELINE| 微信朋友圈          | 
 |QQ_SESSION| QQ好友          | 
 |WEIBO| 微博          | 
+3. 支付调用
+ ```js
+    import Sns from 'react-native-sns-share'
+    
+    let params， type = Sns.snsPayment.TYPES.ALIPAY;
+
+    if (type == Sns.snsPayment.TYPES.ALIPAY) {
+      // order 数据尽量后太组装成功后返回，不要前台自己来拼写。 scheme为ios用的，在plist中配置
+      params = {
+        order:'partner=2088101568358171&seller_id=xxx@alipay.com&out_trade_no=0819145412-6177&subject=测试&body=测试测试&total_fee=0.01&notify_url=http://notify.msp.hk/notify.htm&service=mobile.securitypay.pay&payment_type=1&_input_charset=utf-8&it_b_pay=30m&sign=lBBK%2F0w5LOajrMrji7DUgEqNjIhQbidR13GovA5r3TgIbNqv231yC1NksLdw%2Ba3JnfHXoXuet6XNNHtn7VE%2BeCoRO1O%2BR1KugLrQEZMtG5jmJIe2pbjm%2F3kb%2FuGkpG%2BwYQYI51%2BhA3YBbvZHVQBYveBqK%2Bh8mUyb7GM1HxWs9k4%3D&sign_type=RSA',
+        scheme: 'xxxx'
+      }
+    } else if (type == Sns.snsPayment.TYPES.WECHAT) {
+      // 信息后台给到
+      params = {
+        partnerId:'',
+        prepayId: 'xxxx',
+        package: '',
+        nonceStr: '',
+        timeStamp:'',
+        sign: '',
+      }
+    }
+    
+    Sns.snsPayment.pay(type, params)
+    .then(() => {
+        console.log('支付成功');
+      })
+    .catch((error) => {
+        console.log(error);
+        // 失败的场景下，最好重新拉取下api来判定是否成功。 有可能用户支付完成后，不点返回留在支付应用。
+      })
+ ```
+types常量表
+
+|    变量         |  含义        | 
+| ----------- | ----------- |
+|WECHAT| 微信支付          | 
+|ALIPAY| 支付宝支付          | 
+ 
