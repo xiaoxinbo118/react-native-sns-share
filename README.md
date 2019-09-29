@@ -65,7 +65,7 @@ allprojects {
        ...
     }
 }
- ```gradle
+ ```
  ## 二. 使用
  
  1. 注册App
