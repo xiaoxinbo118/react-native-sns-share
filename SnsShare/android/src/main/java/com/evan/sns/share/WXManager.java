@@ -13,7 +13,8 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 public class WXManager implements IWXAPIEventHandler {
     protected IWXAPI mIWXAPI;
     private Activity mEntryActivity;
-    private AsyncWorkHandler mHander;
+    private AsyncWorkHandler mHandler;
+    private String mAppId;
 
     private static class SingletonClassInstance{
         private static final WXManager instance = new WXManager();
@@ -28,17 +29,22 @@ public class WXManager implements IWXAPIEventHandler {
     public void registerApp(Context context, String appId) {
         mIWXAPI = WXAPIFactory.createWXAPI(context, appId);
         mIWXAPI.registerApp(appId);
+        mAppId = appId;
     }
 
-    public void sendReq(BaseReq req, AsyncWorkHandler hander) {
+    public String getAppId() {
+        return mAppId;
+    }
+
+    public void sendReq(BaseReq req, AsyncWorkHandler handler) {
         boolean result = mIWXAPI.sendReq(req);
 
         if (result == false) {
-            hander.onError(BaseResp.ErrCode.ERR_COMM, "参数错误");
+            handler.onError(BaseResp.ErrCode.ERR_COMM, "params is error or wx is not install");
             return;
         }
 
-        mHander = hander;
+        mHandler = handler;
     }
 
     public void handleIntent(Intent intent, Activity entryActivity) {
@@ -53,16 +59,17 @@ public class WXManager implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
-        if (mHander != null) {
+        if (mHandler != null) {
             switch (resp.errCode) {
                 case BaseResp.ErrCode.ERR_OK: {
-                    mHander.onSuccess();
+                    mHandler.onSuccess();
                 }
                 break;
                 default:
-                    mHander.onError(resp.errCode, resp.errStr);
+                    mHandler.onError(resp.errCode, resp.errStr);
                     break;
             }
+            mHandler = null;
         }
 
         if (mEntryActivity != null) {

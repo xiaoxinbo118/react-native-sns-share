@@ -1,4 +1,5 @@
 PODS:
+  - AliPay (2.1.2)
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
   - Folly (2018.10.22.00):
@@ -79,14 +80,15 @@ PODS:
     - React-Core (= 0.60.5)
   - React-RCTWebSocket (0.60.5):
     - React-Core (= 0.60.5)
-  - RNSnsShare (1.0.0):
+  - RNSnsShare (1.0.1):
+    - AliPay
     - React
     - SDWebImage (~> 5.0)
     - WechatOpenSDK
-  - SDWebImage (5.1.1):
-    - SDWebImage/Core (= 5.1.1)
-  - SDWebImage/Core (5.1.1)
-  - WechatOpenSDK (1.8.5)
+  - SDWebImage (5.2.0):
+    - SDWebImage/Core (= 5.2.0)
+  - SDWebImage/Core (5.2.0)
+  - WechatOpenSDK (1.8.6)
   - yoga (0.60.5.React)
 
 DEPENDENCIES:
@@ -115,6 +117,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AliPay
     - boost-for-react-native
     - SDWebImage
     - WechatOpenSDK
@@ -166,6 +169,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AliPay: 2bd35a4e486d2a8c035043023cd846e886bb21d1
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
@@ -187,9 +191,9 @@ SPEC CHECKSUMS:
   React-RCTText: b074d89033583d4f2eb5faf7ea2db3a13c7553a2
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
-  RNSnsShare: fbea9b368eea342cc2bc33cab5f42714e448bf9a
-  SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
-  WechatOpenSDK: 9b15110aba1d502456d8e83677357e6437f2e751
+  RNSnsShare: c806b2800d266ced845cee479e96269ff29d05b0
+  SDWebImage: 609192dcf3898c910a2848032372ead951e66364
+  WechatOpenSDK: 368ae03b72ee3ea1328c4f11326fbb5d2721d118
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
 PODFILE CHECKSUM: 40a0464d7bdc3ea8d2d3f432789863d9e15fc1d4

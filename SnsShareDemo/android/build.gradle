@@ -22,6 +22,9 @@ buildscript {
 
 allprojects {
     repositories {
+        flatDir {
+            dirs '../../node_modules/react-native-sns-share/android/libs'
+        }
         mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm

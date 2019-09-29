@@ -1,7 +1,5 @@
 package com.evan.sns.share;
 
-import android.text.TextUtils;
-
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;

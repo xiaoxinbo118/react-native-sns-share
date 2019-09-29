@@ -185,6 +185,12 @@ android {
         pickFirst '**/x86/libjsc.so'
         pickFirst '**/armeabi-v7a/libjsc.so'
     }
+
+        repositories {
+//        flatDir {
+//            dirs '../node_modules/react-native-sns-share/android/libs'
+//        }
+    }
 }
 
 dependencies {
