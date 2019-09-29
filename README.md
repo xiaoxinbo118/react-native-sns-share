@@ -44,7 +44,7 @@ PS：未支持部分，会在后续迭代中完成。
     }
 ```
  #### 微信设置
- AndroidManifest.xml中设置
+ 1.AndroidManifest.xml中设置
  ```xml
          <!--微信开始-->
         <activity
@@ -54,7 +54,18 @@ PS：未支持部分，会在后续迭代中完成。
             android:theme="@android:style/Theme.NoDisplay" />
         <!--微信结束-->
  ```
+ 2.Project的gradle中设置
  
+ ```gradle 
+allprojects {
+    repositories {
+        flatDir {
+            dirs '../../node_modules/react-native-sns-share/android/libs'
+        }
+       ...
+    }
+}
+ ```gradle
  ## 二. 使用
  
  1. 注册App
