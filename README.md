@@ -65,6 +65,14 @@ PS：未支持部分，会在后续迭代中完成。
   return handled;
 }
  ```
+  ```c++
+ - (void)applicationWillEnterForeground:(UIApplication *)application
+{
+  [[EVNWeiboManager defaultManager] applicationWillEnterForeground:application];
+  [[EVNWXManager defaultManager] applicationWillEnterForeground:application];
+  [[EVNAliManager defaultManager] applicationWillEnterForeground:application];
+}
+ ```
  ### Android
  确认MainApplication，getPackages中是否已经加入RNSnsSharePackage。
  若没有加入,getPackages中加入 packages.add(new RNSnsSharePackage());
