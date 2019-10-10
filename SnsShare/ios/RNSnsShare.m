@@ -27,15 +27,14 @@ RCT_EXPORT_METHOD(share:(NSInteger)shareType
     model.title = title;
     model.type = (EVNSnsShareType)shareType;
     model.webPageUrl = webpageUrl;
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [[EVNShareManager defaultManager] share:model block:^(NSString *code, NSError *error) {
-        if (error) {
-          reject(code, @"分享失败", error);
-        } else {
-          resolve(code);
-        }
-      }];
-    });
+
+    [[EVNShareManager defaultManager] share:model block:^(NSString *code, NSError *error) {
+      if (error) {
+        reject(code, @"分享失败", error);
+      } else {
+        resolve(code);
+      }
+    }];
 }
 
 @end

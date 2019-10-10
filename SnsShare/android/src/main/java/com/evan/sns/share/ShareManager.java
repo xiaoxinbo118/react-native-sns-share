@@ -1,5 +1,12 @@
 package com.evan.sns.share;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.sina.weibo.sdk.api.ImageObject;
+import com.sina.weibo.sdk.api.TextObject;
+import com.sina.weibo.sdk.api.WeiboMultiMessage;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
@@ -23,11 +30,33 @@ public class ShareManager {
         return ShareManager.SingletonClassInstance.instance;
     }
 
-    public void share(ShareEntity shareEntity, AsyncWorkHandler handler) {
+    public void share(ShareEntity shareEntity, Activity activity, AsyncWorkHandler handler) {
         if (shareEntity.getType() == ShareEntity.ShareType.weChatSession
                 || shareEntity.getType() == ShareEntity.ShareType.weChatTimeline) {
             this.shareWX(shareEntity, handler);
+        } else if (shareEntity.getType() == ShareEntity.ShareType.weibo) {
+            this.shareWb(shareEntity, activity, handler);
         }
+    }
+
+    private void shareWb(ShareEntity shareEntity, Activity activity, AsyncWorkHandler handler) {
+        WeiboMultiMessage message = new WeiboMultiMessage();
+        TextObject textObject = new TextObject();
+//        textObject.title= shareEntity.getTitle();
+        textObject.text = shareEntity.getTitle() + shareEntity.getWebPageUrl();
+//        textObject.actionUrl = shareEntity.getWebPageUrl();
+
+        message.textObject = textObject;
+
+        ImageObject imageObject = new ImageObject();
+        byte[] bytes = getThumb(shareEntity.getThumb());
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        imageObject.setImageObject(bitmap);
+
+        message.imageObject = imageObject;
+
+        WeiboManager.getInstance().shareMessage(activity, message, handler);
+
     }
 
     private void shareWX(ShareEntity shareEntity, AsyncWorkHandler handler) {

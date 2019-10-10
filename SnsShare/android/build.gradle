@@ -32,15 +32,13 @@ android {
       flatDir {
           dirs 'libs'
       }
+      maven { url "https://dl.bintray.com/thelasterstar/maven/" }
     }
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     implementation(name: 'alipaySdk-15.6.5-20190718211159-noUtdid', ext: 'aar')
+    implementation 'com.sina.weibo.sdk:core:4.4.1:openDefaultRelease@aar'
 }

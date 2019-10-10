@@ -104,6 +104,9 @@ class App extends Component {
               this.renderButton('分享朋友圈', shareTypes.WECHAT_TIMELINE, this.share)
             }
             {
+              this.renderButton('分享微博', shareTypes.WECHAT_TIMELINE, this.share)
+            }
+            {
               this.renderButton('微信支付', payTypes.WECHAT, this.pay)
             }
             {

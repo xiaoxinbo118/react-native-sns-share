@@ -48,8 +48,7 @@ FOUNDATION_EXPORT NSString *const AlipayHost;
         callback:(void(^)(NSDictionary *resultDic))completionBlock;
 
 #pragma mark - UIApplicationDelegate
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions;
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation;
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url;
 - (void)applicationWillEnterForeground:(UIApplication *)application;
 
 @end

@@ -36,12 +36,7 @@
   return self;
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-{
-  return  [WXApi handleOpenURL:url delegate:self];
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
 {
   BOOL isSuccess = [WXApi handleOpenURL:url delegate:self];
   if (isSuccess) {
@@ -99,8 +94,9 @@
   [WXApi sendReq:req completion:completion];
 }
 
-- (BOOL)registerApp:(NSString *)appid {
-  return [WXApi registerApp:appid universalLink:@""];
+- (BOOL)registerApp:(NSString *)appid universalLink:(NSString *)universalLink {
+  BOOL result = [WXApi registerApp:appid universalLink:universalLink];
+  return result;
 }
 
 /*! @brief 检查微信是否已被用户安装

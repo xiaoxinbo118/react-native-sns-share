@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "SDWebImage.h"
 #import "EVNWXManager.h"
+#import "EVNWeiboManager.h"
 
 @interface EVNShareManager()
 
@@ -50,6 +51,37 @@
 //    [self shareMini:shareModel block:commpletion];
   } else if (shareModel.type == EVNSnsShareWeChatSession || shareModel.type == EVNSnsShareWeChatTimeline) {
     [self shareWX:shareModel block:commpletion];
+  } else  if (shareModel.type == EVNSnsShareWeibo) {
+    [self shareWeibo:shareModel block:commpletion];
+  }
+}
+
+- (void)shareWeibo:(EVNShareModel *)shareModel block:(void(^)(NSString *code,NSError *error))commpletion {
+  self.commpletion = commpletion;
+  if (shareModel.thumb && ![@"" isEqualToString:shareModel.thumb]) {
+    UIImageView *downloader = [[UIImageView alloc] init];
+    [self.downloaders addObject:downloader];
+    [downloader sd_setImageWithURL:[NSURL URLWithString:shareModel.thumb] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+      if (error == nil && image != nil) {
+        WBMessageObject *message = [WBMessageObject message];
+        message.text = [NSString stringWithFormat:@"%@ %@", shareModel.title, shareModel.webPageUrl];
+        WBImageObject *imageObject = [WBImageObject object];
+        imageObject.imageData = UIImagePNGRepresentation(image);
+        
+        message.imageObject = imageObject;
+        
+        WBSendMessageToWeiboRequest *wbRequest = [WBSendMessageToWeiboRequest requestWithMessage:message];
+        BOOL success = [[EVNWeiboManager defaultManager] sendRequest:wbRequest];
+        if (!success) {
+          commpletion(@"-3", [NSError errorWithDomain:@"snsShare" code:-3 userInfo:@{NSLocalizedDescriptionKey : @"check image size or other params"}]);
+          self.commpletion = nil;
+        }
+      } else {
+        commpletion([NSString stringWithFormat:@"%ld", (long)error.code], error);
+      }
+      
+      [self.downloaders removeObject:downloader];
+    }];
   }
 }
 
@@ -59,6 +91,7 @@
   if (shareModel.thumb && ![@"" isEqualToString:shareModel.thumb]) {
     UIImageView *downloader = [[UIImageView alloc] init];
     [self.downloaders addObject:downloader];
+
     [downloader sd_setImageWithURL:[NSURL URLWithString:shareModel.thumb] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
       if (error == nil && image != nil) {
         SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
@@ -107,6 +140,24 @@
     
     self.commpletion = nil;
   }
+}
+
+#pragma mark - SinaWeiboRequest Delegate
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response {
+  if ([response isKindOfClass:WBSendMessageToWeiboResponse.class]) {
+    NSString *code = [NSString stringWithFormat:@"%@", @(response.statusCode)];
+    if (response.statusCode == WeiboSDKResponseStatusCodeSuccess) {
+      self.commpletion(@"0", nil);
+    } else {
+      self.commpletion(code, [NSError errorWithDomain:@"share" code:response.statusCode userInfo:nil]);
+    }
+    
+    self.commpletion = nil;
+  }
+}
+
+- (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
+  
 }
 
 @end

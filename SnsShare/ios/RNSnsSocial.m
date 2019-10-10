@@ -8,6 +8,7 @@
 
 #import "RNSnsSocial.h"
 #import "EVNWXManager.h"
+#import "EVNWeiboManager.h"
 #import "EVNShareManager.h"
 #import "EVNPaymentManager.h"
 
@@ -19,14 +20,19 @@
 }
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(registerApp:(NSDictionary *)appIds) {
+RCT_EXPORT_METHOD(registerApp:(NSDictionary *)appIds universalLink:(NSString *)universalLink) {
   NSString *wxAppId = [appIds valueForKey:@"wechart"];
   if (wxAppId) {
-    [[EVNWXManager defaultManager] registerApp:wxAppId];
+    [[EVNWXManager defaultManager] registerApp:wxAppId universalLink:universalLink];
     [[EVNWXManager defaultManager] setMessageDelegate:[EVNShareManager defaultManager]];
     [[EVNWXManager defaultManager] setPaymentDelegate:[EVNPaymentManager defaultManager]];
   }
  
+  NSString *wbAppId = [appIds valueForKey:@"weibo"];
+  if (wbAppId) {
+    [[EVNWeiboManager defaultManager] registerApp:wbAppId];
+    [[EVNWeiboManager defaultManager] setMessageDelegate:[EVNShareManager defaultManager]];
+  }
 }
 
 @end

@@ -30,7 +30,7 @@ public class RNSnsShareModule extends ReactContextBaseJavaModule {
     entity.setThumb(imageUrl);
     entity.setType(shareType);
     final Promise fPomise = promise;
-    ShareManager.getInstance().share(entity, new AsyncWorkHandler() {
+    ShareManager.getInstance().share(entity, getCurrentActivity(), new AsyncWorkHandler() {
       @Override
       public void onSuccess() {
         fPomise.resolve(true);

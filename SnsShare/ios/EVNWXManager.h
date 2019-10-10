@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param appid 微信开发者ID
  * @return 成功返回YES，失败返回NO。
  */
-- (BOOL)registerApp:(NSString *)appid;
+- (BOOL)registerApp:(NSString *)appid universalLink:(NSString *)universalLink;
 
 /*! @brief 检查微信是否已被用户安装
  *
@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)sendReq:(BaseReq*)req completion:(void (^ __nullable)(BOOL success))completion;
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options;
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url;
 - (void)applicationWillEnterForeground:(UIApplication *)application;
 
 @end
