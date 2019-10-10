@@ -37,7 +37,7 @@ PS：未支持部分，会在后续迭代中完成。
   1. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“LSApplicationQueriesSchemes“添加alipay、alipayauth
  
  #### 统一设置
-   ```oc
+   ```object c
    // 处理回掉
  - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
