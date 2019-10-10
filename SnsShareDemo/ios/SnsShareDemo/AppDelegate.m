@@ -10,6 +10,9 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "EVNAliManager.h"
+#import "EVNWeiboManager.h"
+#import "EVNWXManager.h"
 
 @implementation AppDelegate
 
@@ -37,6 +40,38 @@
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  BOOL handled = NO;
+  
+  handled = [EVNWeiboManager.defaultManager application:app openURL:url];
+  
+  if (handled) {
+    return YES;
+  }
+  
+  handled = [EVNAliManager.defaultManager application:app openURL:url];
+  
+  if (handled) {
+    return YES;
+  }
+  
+  handled = [EVNWXManager.defaultManager application:app openURL:url];
+  
+  if (handled) {
+    return YES;
+  }
+  
+  return handled;
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+  [[EVNWeiboManager defaultManager] applicationWillEnterForeground:application];
+  [[EVNWXManager defaultManager] applicationWillEnterForeground:application];
+  [[EVNAliManager defaultManager] applicationWillEnterForeground:application];
 }
 
 @end

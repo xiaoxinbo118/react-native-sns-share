@@ -13,7 +13,6 @@ public class MainActivity extends ReactActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // 接收微博分享后的返回值
         WeiboManager.getInstance().doResultIntent(data);
-//        WXManager.getInstance();
     }
 
     /**
