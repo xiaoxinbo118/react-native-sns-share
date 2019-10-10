@@ -128,10 +128,11 @@ allprojects {
  ```js
 import Sns from 'react-native-sns-share'
 
-// 项目启动时，注册微信信息
+// 项目启动时，注册微信、微博信息
 Sns.snsSocial.registerApp({
-  'wechart': 'wxxxxxxxxx'
-});
+  'wechart': 'wxcxxxxxxx',
+  'weibo': 'XXXXX'
+}, "xxx");
 ```
 2. 分享调用
  ```js
