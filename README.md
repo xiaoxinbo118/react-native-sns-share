@@ -5,10 +5,10 @@ RN微信、微博、QQ及支付宝分享、授权登陆、支付插件。
 
 |             | 分享         | 授权登陆     | 支付         |
 | ----------- | ----------- | ----------- | ----------- |
-|微信          | ✔           | ×           | ✔           |
+|微信          | ✔           |  ✔           | ✔           |
 |QQ           |  ×          | ×           | ×           |
-|微博          |  ✔          | ×           | ×           |
-|支付宝        |  ×          | ×           | ✔           |
+|微博          |  ✔          | ✔           | ×           |
+|支付宝        |  ×          |  ✔          | ✔           |
 
 PS：未支持部分，会在后续迭代中完成。
 
@@ -124,17 +124,19 @@ allprojects {
  
  ## 二. 使用
  
- 1. 注册App
+ ###1. 注册App
  ```js
 import Sns from 'react-native-sns-share'
 
 // 项目启动时，注册微信、微博信息
 Sns.snsSocial.registerApp({
-  'wechart': 'wxcxxxxxxx',
-  'weibo': 'XXXXX'
-}, "xxx");
+  'wechart': 'wxc9e5245993bab87d',
+  'weibo': '3590073357',
+}, {
+  'weibo': 'https://www.baidu.com',
+}, 'testing');
 ```
-2. 分享调用
+ ###2. 分享调用
  ```js
  import Sns from 'src/react-native-sns-share'
  
@@ -163,7 +165,7 @@ types常量表
 |WECHAT_TIMELINE| 微信朋友圈          | 
 |QQ_SESSION| QQ好友          | 
 |WEIBO| 微博          | 
-3. 支付调用
+ ###3. 支付调用
  ```js
     import Sns from 'react-native-sns-share'
     
@@ -203,3 +205,33 @@ types常量表
 |WECHAT| 微信支付          | 
 |ALIPAY| 支付宝支付          | 
  
+ ###4. 授权登录调用
+ ```js
+    import Sns from 'react-native-sns-share'
+    
+    let params, type
+    if (type == Sns.snsOAuth.TYPES.ALIPAY) {
+      // authLink 根据支付宝文档，后台做拼装加签
+      params = {
+        authLink:'XXX',
+        scheme: 'xxxx'
+      }
+    }
+    Sns.snsOAuth.auth(type, params)
+    .then((result) => {
+
+       // 调用后台服务，通过result做后续逻辑
+       // 新浪场景格式为 "user_id=%@&access_token=%@&expiration_date=%@&refresh_token=%@"
+        console.log('成功' + result);
+      })
+    .catch((error) => {
+        console.log(error);
+      })
+ ```
+ types常量表
+
+|    变量         |  含义        | 
+| ----------- | ----------- |
+|WECHAT| 微信          | 
+|ALIPAY| 支付宝          | 
+|WEIBO| 微博          | 
