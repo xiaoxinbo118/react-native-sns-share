@@ -5,37 +5,37 @@ RN微信、微博、QQ及支付宝分享、授权登陆、支付插件。
 
 |             | 分享         | 授权登陆     | 支付         |
 | ----------- | ----------- | ----------- | ----------- |
-|微信          | ✔           | ×           | ✔           |
+|微信          | ✔           |  ✔           | ✔           |
 |QQ           |  ×          | ×           | ×           |
-|微博          |  ✔          | ×           | ×           |
-|支付宝        |  ×          | ×           | ✔           |
+|微博          |  ✔          | ✔           | ×           |
+|支付宝        |  ×          |  ✔          | ✔           |
 
 PS：未支持部分，会在后续迭代中完成。
 
  ## 一. 起步
-
+ 
  1. 执行: `$ npm install --save react-native-npm-share --save`
  2. 执行: `$ react-native link react-native-sns-share`
  3. 对于您计划使用的每个平台（ios/android），请遵循相应平台的一个选项
-
+ 
  ### iOS
  1. 进入ios目录
  2. 执行: `$ pod update`
-
+ 
  #### 微信设置
  1. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“URL type“添加“URL scheme”为你所注册的应用程序id（如下图所示）。
  ![xcode设置](https://res.wx.qq.com/op_res/qXIS1XaeAWkQxAJeyFfJPNQUfzVWbPnyqeYUTl3Q3rW1j29j5eQn4xaUNYXErjql)
  2. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“LSApplicationQueriesSchemes“添加weixin、wechat、weixinulapi（如下图所示）。
-
+ 
  ![xcode设置](http://mmbiz.qpic.cn/mmbiz_png/PiajxSqBRaEJsqKkSJGg4TLAxEIvWjtTfrHSbhE3zfbPzuuGzadu9FsWJuBNELsk1IuQucfx91ialTfpPhAF0grA/0?wx_fmt=png)
-
+ 
  #### 微博设置
  1. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“URL type“添加“URL scheme”为你所注册的应用程序id
  2. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“LSApplicationQueriesSchemes“添加weibosdk、weibosdk2.5
-
+ 
  #### 支付宝设置
   1. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“LSApplicationQueriesSchemes“添加alipay、alipayauth
-
+ 
  #### 统一设置
  1.Appdelegate 中添加处理回调
    ```c++
@@ -43,25 +43,25 @@ PS：未支持部分，会在后续迭代中完成。
  - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
   BOOL handled = NO;
-
+  
   handled = [EVNWeiboManager.defaultManager application:app openURL:url];
-
+  
   if (handled) {
     return YES;
   }
-
+  
   handled = [EVNWeiboManager.defaultManager application:app openURL:url];
-
+  
   if (handled) {
     return YES;
   }
-
+  
   handled = [EVNWXManager.defaultManager application:app openURL:url];
-
+  
   if (handled) {
     return YES;
   }
-
+  
   return handled;
 }
  ```
@@ -99,8 +99,8 @@ PS：未支持部分，会在后续迭代中完成。
         <!--微信结束-->
  ```
  2.Project的gradle中设置
-
- ```gradle
+ 
+ ```gradle 
 allprojects {
     repositories {
         flatDir {
@@ -121,25 +121,27 @@ allprojects {
     }
 
  ```
-
+ 
  ## 二. 使用
-
- 1. 注册App
+ 
+ ### 1. 注册App
  ```js
 import Sns from 'react-native-sns-share'
 
 // 项目启动时，注册微信、微博信息
 Sns.snsSocial.registerApp({
-  'wechart': 'wxcxxxxxxx',
-  'weibo': 'XXXXX'
-}, "xxx");
+  'wechart': 'wxc9e5245993bab87d',
+  'weibo': '3590073357',
+}, {
+  'weibo': 'https://www.baidu.com',
+}, 'testing');
 ```
-2. 分享调用
+ ### 2. 分享调用
  ```js
  import Sns from 'src/react-native-sns-share'
-
+ 
  const types = Sns.snsShare.TYPES;
-
+ 
  Sns.snsShare.share({
   webpageUrl: 'https://www.baidu.com',
   title: '分享一下',
@@ -153,20 +155,20 @@ Sns.snsSocial.registerApp({
 .catch((error) => {
     console.log(error);
   })
-
+      
  ```
 types常量表
 
-|    变量         |  含义        |
+|    变量         |  含义        | 
 | ----------- | ----------- |
-|WECHAT_SESSION| 微信好友          |
-|WECHAT_TIMELINE| 微信朋友圈          |
-|QQ_SESSION| QQ好友          |
-|WEIBO| 微博          |
-3. 支付调用
+|WECHAT_SESSION| 微信好友          | 
+|WECHAT_TIMELINE| 微信朋友圈          | 
+|QQ_SESSION| QQ好友          | 
+|WEIBO| 微博          | 
+ ### 3. 支付调用
  ```js
     import Sns from 'react-native-sns-share'
-
+    
     let params， type = Sns.snsPayment.TYPES.ALIPAY;
 
     if (type == Sns.snsPayment.TYPES.ALIPAY) {
@@ -186,7 +188,7 @@ types常量表
         sign: '',
       }
     }
-
+    
     Sns.snsPayment.pay(type, params)
     .then(() => {
         console.log('支付成功');
@@ -198,7 +200,38 @@ types常量表
  ```
 types常量表
 
-|    变量         |  含义        |
+|    变量         |  含义        | 
 | ----------- | ----------- |
-|WECHAT| 微信支付          |
-|ALIPAY| 支付宝支付          |
+|WECHAT| 微信支付          | 
+|ALIPAY| 支付宝支付          | 
+ 
+ ### 4. 授权登录调用
+ ```js
+    import Sns from 'react-native-sns-share'
+    
+    let params, type
+    if (type == Sns.snsOAuth.TYPES.ALIPAY) {
+      // authLink 根据支付宝文档，后台做拼装加签
+      params = {
+        authLink:'XXX',
+        scheme: 'xxxx'
+      }
+    }
+    Sns.snsOAuth.auth(type, params)
+    .then((result) => {
+
+       // 调用后台服务，通过result做后续逻辑
+       // 新浪场景格式为 "user_id=%@&access_token=%@&expiration_date=%@&refresh_token=%@"
+        console.log('成功' + result);
+      })
+    .catch((error) => {
+        console.log(error);
+      })
+ ```
+ types常量表
+
+|    变量         |  含义        | 
+| ----------- | ----------- |
+|WECHAT| 微信          | 
+|ALIPAY| 支付宝          | 
+|WEIBO| 微博          | 
