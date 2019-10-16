@@ -124,7 +124,7 @@ allprojects {
  
  ## 二. 使用
  
- ###1. 注册App
+ ### 1. 注册App
  ```js
 import Sns from 'react-native-sns-share'
 
@@ -136,7 +136,7 @@ Sns.snsSocial.registerApp({
   'weibo': 'https://www.baidu.com',
 }, 'testing');
 ```
- ###2. 分享调用
+ ### 2. 分享调用
  ```js
  import Sns from 'src/react-native-sns-share'
  
@@ -165,7 +165,7 @@ types常量表
 |WECHAT_TIMELINE| 微信朋友圈          | 
 |QQ_SESSION| QQ好友          | 
 |WEIBO| 微博          | 
- ###3. 支付调用
+ ### 3. 支付调用
  ```js
     import Sns from 'react-native-sns-share'
     
@@ -205,7 +205,7 @@ types常量表
 |WECHAT| 微信支付          | 
 |ALIPAY| 支付宝支付          | 
  
- ###4. 授权登录调用
+ ### 4. 授权登录调用
  ```js
     import Sns from 'react-native-sns-share'
     
