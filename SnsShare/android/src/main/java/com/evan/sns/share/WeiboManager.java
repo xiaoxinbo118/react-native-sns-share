@@ -7,12 +7,18 @@ import android.content.Intent;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
 import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WbAuthListener;
+import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.share.WbShareCallback;
 import com.sina.weibo.sdk.share.WbShareHandler;
 
 public class WeiboManager {
+    private SsoHandler mSsoHandler;
+    private AsyncWorkHandler mSsoResultHandler;
     private WbShareHandler mShareHandler;
-    private AsyncWorkHandler mHandler;
+    private AsyncWorkHandler mShareResultHandler;
 
     public static final String SCOPE =
             "email,direct_messages_read,direct_messages_write,"
@@ -30,8 +36,8 @@ public class WeiboManager {
     }
 
 
-    public void registerApp(Context context, String appId) {
-        WbSdk.install(context, new AuthInfo(context, appId, "https://m.baidu.com", WeiboManager.SCOPE));
+    public void registerApp(Context context, String appId, String redirectUrl) {
+        WbSdk.install(context, new AuthInfo(context, appId, redirectUrl, WeiboManager.SCOPE));
     }
 
     public void shareMessage(Activity activity, WeiboMultiMessage message, AsyncWorkHandler handler) {
@@ -41,34 +47,76 @@ public class WeiboManager {
 
         mShareHandler.shareMessage(message, false);
 
-        mHandler = handler;
+        mShareResultHandler = handler;
     }
 
-    public void doResultIntent(Intent data) {
+    public void authorize(Activity activity, AsyncWorkHandler handler) {
+        mSsoHandler = new SsoHandler(activity);
+
+        mSsoHandler.authorize(new WbSsoResult());
+    }
+
+    public void doResultIntent(int requestCode, int resultCode, Intent data) {
         if (mShareHandler != null) {
             mShareHandler.doResultIntent(data, new WbShareResult());
+        }
+
+        if (mSsoHandler != null) {
+            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
     }
 
     private class WbShareResult implements WbShareCallback {
         @Override
         public void onWbShareSuccess() {
-            mHandler.onSuccess();
-            mHandler = null;
+            mShareResultHandler.onSuccess("");
+            mShareResultHandler = null;
             mShareHandler = null;
         }
 
         @Override
         public void onWbShareCancel() {
-            mHandler.onError(-1, "has canceled");
-            mHandler = null;
+            mShareResultHandler.onError(-1, "has canceled");
+            mShareResultHandler = null;
             mShareHandler = null;
         }
 
         @Override
         public void onWbShareFail() {
-            mHandler.onError(-2, "has failed");
-            mHandler = null;
+            mShareResultHandler.onError(-2, "has failed");
+            mShareResultHandler = null;
+            mShareHandler = null;
+        }
+    }
+
+    private class WbSsoResult implements WbAuthListener {
+        @Override
+        public void onSuccess(Oauth2AccessToken token) {
+            StringBuilder result = new StringBuilder();
+            result.append("user_id=");
+            result.append(token.getUid());
+            result.append("access_token=");
+            result.append(token.getToken());
+            result.append("expiration_date=");
+            result.append(token.getExpiresTime());
+            result.append("refresh_token=");
+            result.append(token.getRefreshToken());
+            mShareResultHandler.onSuccess("");
+            mShareResultHandler = null;
+            mShareHandler = null;
+        }
+
+        @Override
+        public void cancel() {
+            mShareResultHandler.onError(-1, "has canceled");
+            mShareResultHandler = null;
+            mShareHandler = null;
+        }
+
+        @Override
+        public void onFailure(WbConnectErrorMessage errorMessage) {
+            mShareResultHandler.onError( Integer.parseInt(errorMessage.getErrorCode()), "has failed");
+            mShareResultHandler = null;
             mShareHandler = null;
         }
     }

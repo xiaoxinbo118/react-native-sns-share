@@ -32,7 +32,7 @@ public class RNSnsShareModule extends ReactContextBaseJavaModule {
     final Promise fPomise = promise;
     ShareManager.getInstance().share(entity, getCurrentActivity(), new AsyncWorkHandler() {
       @Override
-      public void onSuccess() {
+      public void onSuccess(String code) {
         fPomise.resolve(true);
       }
 

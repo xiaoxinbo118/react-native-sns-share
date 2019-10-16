@@ -14,14 +14,15 @@ public class RNSnsSocialModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void registerApp(ReadableMap appIds, String universalLink) {
+    public void registerApp(ReadableMap appIds, ReadableMap redirectUrls, String universalLink) {
         String wxAppId = appIds.getString("wechart");
         
         WXManager.getInstance().registerApp(getReactApplicationContext(), wxAppId);
 
         String wbAppId = appIds.getString("weibo");
+        String redirectUrl = redirectUrls.getString("weibo");
 
-        WeiboManager.getInstance().registerApp(getReactApplicationContext(), wbAppId);
+        WeiboManager.getInstance().registerApp(getReactApplicationContext(), wbAppId, redirectUrl);
     }
 
     @Override

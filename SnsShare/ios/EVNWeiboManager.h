@@ -20,12 +20,21 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)defaultManager;
 
+@property (nonatomic, readonly) NSString *redirectUrl;
+
 /**
  向微博客户端程序注册第三方应用
  @param appKey 微博开放平台第三方应用appKey
  @return 注册成功返回YES，失败返回NO
  */
-- (BOOL)registerApp:(NSString *)appid;
+- (BOOL)registerApp:(NSString *)appid redirectUrl:(NSString *)redirectUrl;
+
+/**
+ *  认证相关委托设置，处理：
+ *  SendAuthReq/SendAuthResp
+ *  请求或相应消息类型
+ */
+@property (nonatomic,weak) id<WeiboSDKDelegate> authDelegate;//认证相关的委托处理
 
 /**
  *  分享相关委托，处理：

@@ -2,7 +2,6 @@ package com.snssharedemo;
 
 import android.content.Intent;
 
-import com.evan.sns.share.WXManager;
 import com.evan.sns.share.WeiboManager;
 import com.facebook.react.ReactActivity;
 
@@ -12,7 +11,7 @@ public class MainActivity extends ReactActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 接收微博分享后的返回值
-        WeiboManager.getInstance().doResultIntent(data);
+        WeiboManager.getInstance().doResultIntent(requestCode, resultCode, data);
     }
 
     /**

@@ -19,6 +19,6 @@ Pod::Spec.new do |s|
   s.dependency "React"
   s.dependency 'SDWebImage', '~> 5.0'
   s.dependency 'WechatOpenSDK'
-  s.dependency 'AliPay'
+  s.dependency 'AlipaySDK-iOS'
   s.dependency 'WeiboSDK'
 end

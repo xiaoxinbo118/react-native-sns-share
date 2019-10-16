@@ -100,6 +100,47 @@ NSString *const AlipayHost = @"safepay";
   [[AlipaySDK defaultService] payOrder:orderStr fromScheme:scheme callback:alisdk_block];
 }
 
+/**
+ *  快登授权2.0
+ *
+ *  @param infoStr         授权请求信息字符串
+ *  @param scheme          调用授权的app注册在info.plist中的scheme
+ *  @param completionBlock 授权结果回调
+ */
+- (void)authWithInfo:(NSString *)infoStr scheme:(NSString *)scheme callback:(void(^)(NSDictionary *resultDic))completionBlock {
+  if ([infoStr length] == 0) {
+    if (completionBlock) {
+      completionBlock(nil);
+    }
+    return ;
+  }
+  
+  
+  void(^alisdk_block)(NSDictionary *resultDic) = ^(NSDictionary *resultDic) {
+    
+    if (completionBlock) {
+      completionBlock(resultDic);
+    }
+    
+    
+    [self.authCallbacks removeObjectForKey:infoStr];//移除queue
+  };
+  
+  void(^inner_block)(NSDictionary *resultDic,NSString *key) = ^(NSDictionary *resultDic,NSString *key) {
+    
+    if (![key isEqualToString:infoStr]) {//并不是当前请求，不需要处理
+      return ;
+    }
+    
+    alisdk_block(resultDic);//可以处理
+  };
+  
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayCheckAlipaySDKCallbacks) object:nil];
+  
+  [_authCallbacks setObject:inner_block forKey:infoStr];
+  [[AlipaySDK defaultService] auth_V2WithInfo:infoStr fromScheme:scheme callback:alisdk_block];
+}
+
 #pragma mark - UIApplicationDelegate
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url {
   
@@ -109,18 +150,17 @@ NSString *const AlipayHost = @"safepay";
     
     if ([self.authCallbacks count]) {//对每个请求的callback都遍历返回
       
-//      NSDictionary *callbacks = [self.authCallbacks copy];
-//      NSArray *keys = [callbacks allKeys];
-//
-//      void (^callback)(NSDictionary *resultDic) = ^(NSDictionary *resultDic){
-//        //遍历返回
-//        [keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
-//          void(^inner_block)(NSDictionary *resultDic,NSString *key) = [callbacks objectForKey:key];
-//          inner_block(resultDic,key);
-//        }];
-//      };
-      // todo auth
-//      [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:callback];
+      NSDictionary *callbacks = [self.authCallbacks copy];
+      NSArray *keys = [callbacks allKeys];
+
+      void (^callback)(NSDictionary *resultDic) = ^(NSDictionary *resultDic){
+        //遍历返回
+        [keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
+          void(^inner_block)(NSDictionary *resultDic,NSString *key) = [callbacks objectForKey:key];
+          inner_block(resultDic,key);
+        }];
+      };
+      [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:callback];
       
     }
     

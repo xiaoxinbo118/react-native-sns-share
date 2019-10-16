@@ -21,6 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)defaultManager;
 
 /**
+ *  认证相关委托设置，处理：
+ *  SendAuthReq/SendAuthResp
+ *  请求或相应消息类型
+ */
+@property (nonatomic,weak) id<WXApiDelegate> authDelegate;//认证相关的委托处理
+
+/**
  *  分享相关委托，处理：
  *  SendMessageToWXReq/SendMessageToWXResp
  *  GetMessageFromWXReq/GetMessageFromWXResp

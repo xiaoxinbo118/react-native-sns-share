@@ -72,23 +72,43 @@ class App extends Component {
       })
   }
 
-  renderButton(title, type, onClick) {
-    return (
+  oAuth(type) {
+    let params
+    if (type == Sns.snsOAuth.TYPES.ALIPAY) {
+      // authLink 根据支付宝文档，后台做拼装加签
+      params = {
+        authLink:'XXX',
+        scheme: 'xxxx'
+      }
+    }
+    Sns.snsOAuth.auth(type, params)
+    .then((result) => {
 
+       // 调用后台服务，通过result做后续逻辑
+       // 新浪场景格式为 "user_id=%@&access_token=%@&expiration_date=%@&refresh_token=%@"
+        console.log('成功' + result);
+      })
+    .catch((error) => {
+        console.log(error);
+      })
+  }
+
+  renderButton(title, type, onClick, style) {
+    return (
         <TouchableOpacity activeOpacity={0.8} onPress={onClick.bind(this, type)}>
-          <View style={styles.button}>
+          <View style={[styles.button, style]}>
             <Text style={styles.title}>
               {title}
             </Text>
           </View>
         </TouchableOpacity>
-
       )
   }
 
   render() {
     const shareTypes = Sns.snsShare.TYPES;
     const payTypes = Sns.snsPayment.TYPES;
+    const authTypes = Sns.snsOAuth.TYPES;
     return (
       <Fragment>
         <StatusBar barStyle="dark-content" />
@@ -98,19 +118,28 @@ class App extends Component {
             style={styles.scrollView}>
             <View style={styles.content}>
             {
-              this.renderButton('分享微信好友', shareTypes.WECHAT_SESSION, this.share)
+              this.renderButton('分享微信好友', shareTypes.WECHAT_SESSION, this.share, styles.share)
             }
             {
-              this.renderButton('分享朋友圈', shareTypes.WECHAT_TIMELINE, this.share)
+              this.renderButton('分享朋友圈', shareTypes.WECHAT_TIMELINE, this.share, styles.share)
             }
             {
-              this.renderButton('分享微博', shareTypes.WECHAT_TIMELINE, this.share)
+              this.renderButton('分享微博', shareTypes.WEIBO, this.share, styles.share)
             }
             {
-              this.renderButton('微信支付', payTypes.WECHAT, this.pay)
+              this.renderButton('微信支付', payTypes.WECHAT, this.pay, styles.payment)
             }
             {
-              this.renderButton('支付宝支付', payTypes.ALIPAY, this.pay)
+              this.renderButton('支付宝支付', payTypes.ALIPAY, this.pay, styles.payment)
+            }
+            {
+              this.renderButton('微信授权', authTypes.WECHAT, this.oAuth, styles.auth)
+            }
+            {
+              this.renderButton('支付宝授权', authTypes.ALIPAY, this.oAuth, styles.auth)
+            }
+            {
+              this.renderButton('微博授权', authTypes.WEIBO, this.oAuth, styles.auth)
             }
             </View>
           </ScrollView>
@@ -134,11 +163,19 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lighter,
   },
   button: {
-    backgroundColor: '#e62117',
     height: 44,
     width: '100%',
     borderRadius: 20,
     marginBottom: 25,
+  },
+  share: {
+    backgroundColor: '#e62117',
+  },
+  payment: {
+    backgroundColor: '#06417d',
+  },
+  auth: {
+    backgroundColor: '#0c2f39',
   },
   title: {
     color: '#fff',

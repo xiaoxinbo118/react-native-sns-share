@@ -79,12 +79,12 @@
       res.errCode = -2;
       [self.paymentDelegate onResp:res];
     }
-//    else if ([req isKindOfClass:[SendAuthReq class]]) {
-//      SendAuthResp *res = [[SendAuthResp alloc] init];
-//      res.errCode = -2;
-//      res.state = [(SendAuthReq *)req state];
-//      [self.authDelegate onResp:res];
-//    }
+    else if ([req isKindOfClass:[SendAuthReq class]]) {
+      SendAuthResp *res = [[SendAuthResp alloc] init];
+      res.errCode = -2;
+      res.state = [(SendAuthReq *)req state];
+      [self.authDelegate onResp:res];
+    }
   }];
   [_reqQueue removeAllObjects];
 }
@@ -154,9 +154,9 @@
   else if ([resp isKindOfClass:[PayResp class]]) {
     [self.paymentDelegate onResp:resp];
   }
-//  else if ([resp isKindOfClass:[SendAuthResp class]]) {
-//    [self.authDelegate onResp:resp];
-//  }
+  else if ([resp isKindOfClass:[SendAuthResp class]]) {
+    [self.authDelegate onResp:resp];
+  }
   
   //移除最后一个
   [_reqQueue removeLastObject];

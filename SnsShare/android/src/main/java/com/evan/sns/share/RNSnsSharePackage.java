@@ -15,6 +15,7 @@ public class RNSnsSharePackage implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
       return Arrays.<NativeModule>asList(new RNSnsShareModule(reactContext),
               new RNSnsSocialModule(reactContext),
+              new RNSnsOAuthModule(reactContext),
               new RNSnsPaymentModule(reactContext));
     }
 

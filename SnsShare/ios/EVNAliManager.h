@@ -47,6 +47,15 @@ FOUNDATION_EXPORT NSString *const AlipayHost;
           scheme:(NSString *)scheme
         callback:(void(^)(NSDictionary *resultDic))completionBlock;
 
+/**
+ *  快登授权2.0
+ *
+ *  @param infoStr         授权请求信息字符串
+ *  @param scheme          调用授权的app注册在info.plist中的scheme
+ *  @param completionBlock 授权结果回调
+ */
+- (void)authWithInfo:(NSString *)infoStr scheme:(NSString *)scheme callback:(void(^)(NSDictionary *resultDic))completionBlock;
+
 #pragma mark - UIApplicationDelegate
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url;
 - (void)applicationWillEnterForeground:(UIApplication *)application;

@@ -62,7 +62,7 @@ public class WXManager implements IWXAPIEventHandler {
         if (mHandler != null) {
             switch (resp.errCode) {
                 case BaseResp.ErrCode.ERR_OK: {
-                    mHandler.onSuccess();
+                    mHandler.onSuccess("");
                 }
                 break;
                 default:

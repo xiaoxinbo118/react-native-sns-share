@@ -42,28 +42,37 @@
 #endif
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
+  return [self application:application openURL:url];
+}
+
+// 微博web版本回掉时，会走此方法
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation {
+  return [self application:application openURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url {
   BOOL handled = NO;
-  
-  handled = [EVNWeiboManager.defaultManager application:app openURL:url];
-  
+
+  handled = [EVNWeiboManager.defaultManager application:application openURL:url];
+
   if (handled) {
     return YES;
   }
-  
-  handled = [EVNAliManager.defaultManager application:app openURL:url];
-  
+
+  handled = [EVNAliManager.defaultManager application:application openURL:url];
+
   if (handled) {
     return YES;
   }
-  
-  handled = [EVNWXManager.defaultManager application:app openURL:url];
-  
+
+  handled = [EVNWXManager.defaultManager application:application openURL:url];
+
   if (handled) {
     return YES;
   }
-  
+
   return handled;
 }
 
