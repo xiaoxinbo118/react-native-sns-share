@@ -35,7 +35,10 @@ PS：未支持部分，会在后续迭代中完成。
  
  #### 支付宝设置
   1. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“LSApplicationQueriesSchemes“添加alipay、alipayauth
- 
+ #### QQ设置
+  1. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“URL type“添加“URL scheme”为你所注册的应用程序id
+  2. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“LSApplicationQueriesSchemes“mqq、mqqapi、mqqopensdkapiV3、mqqopensdkapiV2
+  PS 参考Demo
  #### 统一设置
  1.Appdelegate 中添加处理回调
    ```c++
@@ -86,6 +89,7 @@ PS：未支持部分，会在后续迭代中完成。
   [[EVNQQManager defaultManager] applicationWillEnterForeground:application];
 }
    ```
+ 
  ### Android
  确认MainApplication，getPackages中是否已经加入RNSnsSharePackage。
  若没有加入,getPackages中加入 packages.add(new RNSnsSharePackage());
@@ -124,13 +128,13 @@ allprojects {
 }
  ```
   #### 微博设置
-  1.MainActivity中重载onActivityResult，用于接收微博回掉信息
+  1.MainActivity中重载onActivityResult，用于接收微博回调信息
  ```java
         @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 接收微博分享后的返回值
-        WeiboManager.getInstance().doResultIntent(data);
+        WeiboManager.getInstance().doResultIntent(requestCode, resultCode, data);
     }
 
  ```
@@ -142,6 +146,38 @@ allprojects {
         maven { url "https://dl.bintray.com/thelasterstar/maven/" }
     }
 }
+ ```
+ #### QQ设置
+  1.AndroidManifest.xml中设置。AuthActivity中的Data为tencent+AppId
+ ```xml
+       <!--QQ分享开始-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1111" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--QQ分享结束-->
+ ```
+   2.MainActivity中重载onActivityResult，用于接收QQ回调信息
+ ```java
+        @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 接收QQ分享后的返回值
+       QQManager.getInstance().doResultIntent(requestCode, resultCode, data);
+    }
+
  ```
  ## 二. 使用
  
@@ -256,6 +292,7 @@ types常量表
 |WECHAT| 微信          | 
 |ALIPAY| 支付宝          | 
 |WEIBO| 微博          | 
+|QQ| 微博          | 
 
 
 
