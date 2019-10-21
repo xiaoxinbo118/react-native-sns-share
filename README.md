@@ -39,24 +39,37 @@ PS：未支持部分，会在后续迭代中完成。
  #### 统一设置
  1.Appdelegate 中添加处理回调
    ```c++
-   // 处理回调
- - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
+  return [self application:application openURL:url];
+}
+// 微博web版本回掉时，会走此方法
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation {
+  return [self application:application openURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url {
   BOOL handled = NO;
-  
-  handled = [EVNWeiboManager.defaultManager application:app openURL:url];
-  
+
+  handled = [EVNWeiboManager.defaultManager application:application openURL:url];
+
   if (handled) {
     return YES;
   }
-  
-  handled = [EVNWeiboManager.defaultManager application:app openURL:url];
-  
+
+  handled = [EVNAliManager.defaultManager application:application openURL:url];
+
   if (handled) {
     return YES;
   }
-  
-  handled = [EVNWXManager.defaultManager application:app openURL:url];
+
+  handled = [EVNWXManager.defaultManager application:application openURL:url];
+
+  if (handled) {
+    return YES;
+  }
+
+  handled = [EVNQQManager.defaultManager application:application openURL:url];
   
   if (handled) {
     return YES;
@@ -64,15 +77,15 @@ PS：未支持部分，会在后续迭代中完成。
   
   return handled;
 }
- ```
-  ```c++
- - (void)applicationWillEnterForeground:(UIApplication *)application
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
 {
   [[EVNWeiboManager defaultManager] applicationWillEnterForeground:application];
   [[EVNWXManager defaultManager] applicationWillEnterForeground:application];
   [[EVNAliManager defaultManager] applicationWillEnterForeground:application];
+  [[EVNQQManager defaultManager] applicationWillEnterForeground:application];
 }
- ```
+   ```
  ### Android
  确认MainApplication，getPackages中是否已经加入RNSnsSharePackage。
  若没有加入,getPackages中加入 packages.add(new RNSnsSharePackage());
