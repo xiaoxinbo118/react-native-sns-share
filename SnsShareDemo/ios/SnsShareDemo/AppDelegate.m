@@ -13,7 +13,7 @@
 #import "EVNAliManager.h"
 #import "EVNWeiboManager.h"
 #import "EVNWXManager.h"
-
+#import "EVNQQManager.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -73,6 +73,12 @@
     return YES;
   }
 
+  handled = [EVNQQManager.defaultManager application:application openURL:url];
+  
+  if (handled) {
+    return YES;
+  }
+  
   return handled;
 }
 
@@ -81,6 +87,7 @@
   [[EVNWeiboManager defaultManager] applicationWillEnterForeground:application];
   [[EVNWXManager defaultManager] applicationWillEnterForeground:application];
   [[EVNAliManager defaultManager] applicationWillEnterForeground:application];
+  [[EVNQQManager defaultManager] applicationWillEnterForeground:application];
 }
 
 @end
