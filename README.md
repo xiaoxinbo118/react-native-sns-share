@@ -235,3 +235,9 @@ types常量表
 |WECHAT| 微信          | 
 |ALIPAY| 支付宝          | 
 |WEIBO| 微博          | 
+
+
+
+
+<div align='center'><img src="http://m.qpic.cn/psb?/V11WlCWW0HY4Ms/8Z4PimX9K4gJJ4n5.HZ7L0y*NiG4ViSu*LpQTcR2n8o!/b/dAYBAAAAAAAA&bo=OAQ4BAAAAAARBzA!&rf=viewer_4" width="300" height="300" /></div>
+
