@@ -10,10 +10,11 @@
 #import "EVNShareModel.h"
 #import "WXApi.h"
 #import "WeiboSDK.h"
+#import "EVNQQManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EVNShareManager : NSObject<WXApiDelegate, WeiboSDKDelegate>
+@interface EVNShareManager : NSObject<WXApiDelegate, WeiboSDKDelegate, EVNQQDelegate>
 
 + (EVNShareManager *)defaultManager;
 

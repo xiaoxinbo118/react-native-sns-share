@@ -53,6 +53,8 @@
     [self shareWX:shareModel block:commpletion];
   } else  if (shareModel.type == EVNSnsShareWeibo) {
     [self shareWeibo:shareModel block:commpletion];
+  } else if (shareModel.type == EVNSnsShareQQSession) {
+    [self shareQQ:shareModel block:commpletion];
   }
 }
 
@@ -83,6 +85,30 @@
       [self.downloaders removeObject:downloader];
     }];
   }
+}
+
+- (void)shareQQ:(EVNShareModel *)shareModel block:(void(^)(NSString *code,NSError *error))commpletion {
+  self.commpletion = commpletion;
+  if (shareModel.thumb && ![@"" isEqualToString:shareModel.thumb]) {
+    UIImageView *downloader = [[UIImageView alloc] init];
+    [self.downloaders addObject:downloader];
+    
+    [downloader sd_setImageWithURL:[NSURL URLWithString:shareModel.thumb] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+      if (error == nil && image != nil) {
+        QQApiURLObject *obj = [[QQApiURLObject alloc] initWithURL:[NSURL URLWithString:shareModel.webPageUrl] title:shareModel.title description:shareModel.desc previewImageData:UIImagePNGRepresentation(image) targetContentType:QQApiURLTargetTypeNews];
+        
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:obj];
+        
+        //将内容分享到qq
+        [[EVNQQManager defaultManager] sendReq:req];
+      } else {
+        commpletion([NSString stringWithFormat:@"%ld", (long)error.code], error);
+      }
+      
+      [self.downloaders removeObject:downloader];
+    }];
+  }
+  
 }
 
 - (void)shareWX:(EVNShareModel *)shareModel block:(void(^)(NSString *code,NSError *error))commpletion
@@ -140,6 +166,23 @@
     
     self.commpletion = nil;
   }
+}
+
+#pragma qq delegate
+- (void)onQQResp:(QQBaseResp *)resp {
+  if (!self.commpletion) {
+    return;
+  }
+  
+  if ([resp isKindOfClass:[SendMessageToQQResp class]]) {
+    if (!resp.errorDescription) {
+      self.commpletion(@"0", nil);
+    } else {
+      self.commpletion(nil, [NSError errorWithDomain:@"share" code:-10 userInfo:nil]);;
+    }
+  }
+  
+  self.commpletion = nil;
 }
 
 #pragma mark - SinaWeiboRequest Delegate

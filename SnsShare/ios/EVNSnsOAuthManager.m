@@ -40,7 +40,14 @@
     [self aliAuth:params block:commpletion];
   } else if (oAuthType == EVNSnsOAuthWeibo) {
     [self weiboAuth:params block:commpletion];
+  } else if (oAuthType == EVNSnsOAuthQQ) {
+    [self qqAuth:params block:commpletion];
   }
+}
+
+- (void)qqAuth:(NSDictionary *)params block:(void(^)(NSString *code, NSError *error))commpletion {
+  self.commpletion = commpletion;
+  [[EVNQQManager defaultManager] authorize];
 }
 
 - (void)wxAuth:(NSDictionary *)params block:(void(^)(NSString *code, NSError *error))commpletion {
@@ -176,6 +183,10 @@
   NSLog(@"微信登录请求已经发出[%@]",req.state);
 }
 
+- (void)onQQReq:(QQBaseReq *)req {
+  
+}
+
 /*! @brief 发送一个sendReq后，收到微信的回应
  *
  * 收到一个来自微信的处理结果。调用一次sendReq后会收到onResp。
@@ -218,6 +229,22 @@
 
 - (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
   
+}
+
+- (void)onQQResp:(QQBaseResp *)resp {
+  if (!self.commpletion) {
+    return;
+  }
+  
+  if ([resp isKindOfClass:[SendMessageToQQResp class]]) {
+    if (!resp.errorDescription) {
+      self.commpletion(resp.result, nil);
+    } else {
+      self.commpletion(nil, [NSError errorWithDomain:@"share" code:-10 userInfo:nil]);;
+    }
+  }
+  
+  self.commpletion = nil;
 }
 
 @end

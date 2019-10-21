@@ -86,6 +86,7 @@ class App extends Component {
 
        // 调用后台服务，通过result做后续逻辑
        // 新浪场景格式为 "user_id=%@&access_token=%@&expiration_date=%@&refresh_token=%@"
+       // QQ场景格式为 "open_id=%@&access_token=%@&expiration_date=%@"
         console.log('成功' + result);
       })
     .catch((error) => {
@@ -127,6 +128,9 @@ class App extends Component {
               this.renderButton('分享微博', shareTypes.WEIBO, this.share, styles.share)
             }
             {
+              this.renderButton('分享QQ', shareTypes.QQ_SESSION, this.share, styles.share)
+            }
+            {
               this.renderButton('微信支付', payTypes.WECHAT, this.pay, styles.payment)
             }
             {
@@ -140,6 +144,9 @@ class App extends Component {
             }
             {
               this.renderButton('微博授权', authTypes.WEIBO, this.oAuth, styles.auth)
+            }
+            {
+              this.renderButton('QQ授权', authTypes.QQ, this.oAuth, styles.auth)
             }
             </View>
           </ScrollView>

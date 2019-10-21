@@ -21,4 +21,5 @@ Pod::Spec.new do |s|
   s.dependency 'WechatOpenSDK'
   s.dependency 'AlipaySDK-iOS'
   s.dependency 'WeiboSDK'
+  s.dependency 'TencentOpenApiSDK'
 end

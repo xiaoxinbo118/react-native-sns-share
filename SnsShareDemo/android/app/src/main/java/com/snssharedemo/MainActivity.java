@@ -2,6 +2,7 @@ package com.snssharedemo;
 
 import android.content.Intent;
 
+import com.evan.sns.share.QQManager;
 import com.evan.sns.share.WeiboManager;
 import com.facebook.react.ReactActivity;
 
@@ -12,6 +13,7 @@ public class MainActivity extends ReactActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // 接收微博分享后的返回值
         WeiboManager.getInstance().doResultIntent(requestCode, resultCode, data);
+        QQManager.getInstance().doResultIntent(requestCode, resultCode, data);
     }
 
     /**

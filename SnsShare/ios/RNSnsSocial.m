@@ -12,6 +12,8 @@
 #import "EVNShareManager.h"
 #import "EVNSnsOAuthManager.h"
 #import "EVNPaymentManager.h"
+#import "EVNQQManager.h"
+
 
 @implementation RNSnsSocial
 
@@ -36,6 +38,14 @@ RCT_EXPORT_METHOD(registerApp:(NSDictionary *)appIds redirectUrls:(NSDictionary 
     [[EVNWeiboManager defaultManager] registerApp:wbAppId redirectUrl:redirectUrl];
     [[EVNWeiboManager defaultManager] setMessageDelegate:[EVNShareManager defaultManager]];
     [[EVNWeiboManager defaultManager] setAuthDelegate:[EVNSnsOAuthManager defaultManager]];
+  }
+  
+  NSString *qqAppId = [appIds valueForKey:@"qq"];
+
+  if (qqAppId) {
+    [[EVNQQManager defaultManager] registerApp:qqAppId];
+    [[EVNQQManager defaultManager] setShareDelegate:[EVNShareManager defaultManager]];
+    [[EVNQQManager defaultManager] setAuthDelegate:[EVNSnsOAuthManager defaultManager]];
   }
 }
 

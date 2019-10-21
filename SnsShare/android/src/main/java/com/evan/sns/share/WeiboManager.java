@@ -101,7 +101,7 @@ public class WeiboManager {
             result.append(token.getExpiresTime());
             result.append("refresh_token=");
             result.append(token.getRefreshToken());
-            mShareResultHandler.onSuccess("");
+            mShareResultHandler.onSuccess(result.toString());
             mShareResultHandler = null;
             mShareHandler = null;
         }

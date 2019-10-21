@@ -32,6 +32,8 @@ public class OAuthManager {
             this.authAli(params, activity, handler);
         } else if (type == AuthType.weibo) {
             this.authWeibo(activity, handler);
+        } else if (type == AuthType.qq) {
+            this.authQQ(activity, handler);
         }
     }
 
@@ -46,6 +48,10 @@ public class OAuthManager {
 
     public void authWeibo(Activity activity, AsyncWorkHandler handler) {
         WeiboManager.getInstance().authorize(activity, handler);
+    }
+
+    public void authQQ(Activity activity, AsyncWorkHandler handler) {
+        QQManager.getInstance().authorize(activity, handler);
     }
 
     public void authAli(ReadableMap params, final Activity activity, final AsyncWorkHandler handler) {

@@ -84,11 +84,15 @@ PODS:
     - AlipaySDK-iOS
     - React
     - SDWebImage (~> 5.0)
+    - TencentOpenApiSDK
     - WechatOpenSDK
     - WeiboSDK
   - SDWebImage (5.2.3):
     - SDWebImage/Core (= 5.2.3)
   - SDWebImage/Core (5.2.3)
+  - TencentOpenApiSDK (2.9.5):
+    - TencentOpenApiSDK/Basic (= 2.9.5)
+  - TencentOpenApiSDK/Basic (2.9.5)
   - WechatOpenSDK (1.8.6)
   - WeiboSDK (3.1.3)
   - yoga (0.60.5.React)
@@ -122,6 +126,7 @@ SPEC REPOS:
     - AlipaySDK-iOS
     - boost-for-react-native
     - SDWebImage
+    - TencentOpenApiSDK
     - WechatOpenSDK
     - WeiboSDK
 
@@ -194,8 +199,9 @@ SPEC CHECKSUMS:
   React-RCTText: b074d89033583d4f2eb5faf7ea2db3a13c7553a2
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
-  RNSnsShare: ef10012125b8eadd0defab1f489dcee189e35f38
+  RNSnsShare: fe2d83fe83b5695766c0c74bc38ae06ceac8b7ea
   SDWebImage: 46a7f73228f84ce80990c786e4372cf4db5875ce
+  TencentOpenApiSDK: a0d7716edd6eb438d65828168e8e5137301b436d
   WechatOpenSDK: 368ae03b72ee3ea1328c4f11326fbb5d2721d118
   WeiboSDK: acb067053668102cf07d01aa7604350162c2e466
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WXApi.h"
 #import "WeiboSDK.h"
+#import "EVNQQManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +20,7 @@ typedef enum {
   EVNSnsOAuthWeibo,
 } EVNSnsOAuthType;
 
-@interface EVNSnsOAuthManager : NSObject<WXApiDelegate, WeiboSDKDelegate>
+@interface EVNSnsOAuthManager : NSObject<WXApiDelegate, WeiboSDKDelegate, EVNQQDelegate>
 
 /**
  *  授权引擎

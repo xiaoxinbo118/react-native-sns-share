@@ -41,4 +41,5 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     implementation(name: 'alipaySdk-15.6.5-20190718211159-noUtdid', ext: 'aar')
     implementation 'com.sina.weibo.sdk:core:4.4.1:openDefaultRelease@aar'
+    implementation(name: 'open_sdk_r6137_lite', ext: 'jar')
 }

@@ -3,10 +3,12 @@ package com.evan.sns.share;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.tencent.connect.share.QQShare;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
@@ -36,15 +38,26 @@ public class ShareManager {
             this.shareWX(shareEntity, handler);
         } else if (shareEntity.getType() == ShareEntity.ShareType.weibo) {
             this.shareWb(shareEntity, activity, handler);
+        } else if (shareEntity.getType() == ShareEntity.ShareType.QQSession) {
+            this.shareQQ(shareEntity, activity, handler);
         }
+    }
+
+    private void shareQQ(ShareEntity shareEntity, Activity activity, AsyncWorkHandler handler) {
+        Bundle params = new Bundle();
+
+        params.putString(QQShare.SHARE_TO_QQ_TITLE, shareEntity.getTitle());
+        params.putString(QQShare.SHARE_TO_QQ_SUMMARY,  shareEntity.getDesc());
+        params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, shareEntity.getThumb());
+        params.putString(QQShare.SHARE_TO_QQ_TARGET_URL,  shareEntity.getWebPageUrl());
+        params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+        QQManager.getInstance().shareMessage(activity, params, handler);
     }
 
     private void shareWb(ShareEntity shareEntity, Activity activity, AsyncWorkHandler handler) {
         WeiboMultiMessage message = new WeiboMultiMessage();
         TextObject textObject = new TextObject();
-//        textObject.title= shareEntity.getTitle();
         textObject.text = shareEntity.getTitle() + shareEntity.getWebPageUrl();
-//        textObject.actionUrl = shareEntity.getWebPageUrl();
 
         message.textObject = textObject;
 
