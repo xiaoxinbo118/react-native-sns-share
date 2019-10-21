@@ -121,7 +121,15 @@ allprojects {
     }
 
  ```
- 
+ 2.主build.gradle中添加
+  ```gradle 
+ allprojects {
+    repositories {
+        ...
+        maven { url "https://dl.bintray.com/thelasterstar/maven/" }
+    }
+}
+ ```
  ## 二. 使用
  
  ### 1. 注册App
