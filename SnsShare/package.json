@@ -16,7 +16,8 @@
     "oauth"
   ],
   "author": "Evan Xiao",
-  "license": "",
+  "homepage": "https://github.com/xiaoxinbo118/react-native-sns-share/",
+  "license": "MIT",
   "peerDependencies": {
     "react-native": "^0.41.2"
   }
