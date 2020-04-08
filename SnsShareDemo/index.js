@@ -10,9 +10,9 @@ import Sns from 'react-native-sns-share'
 // 项目启动时，注册微信信息
 Sns.snsSocial.registerApp({
   'wechart': 'wx111111',
-  'weibo': '222222',
+  'weibo': null,
   'qq': '3333333',
 }, {
-  'weibo': 'https://www.baidu.com',
+  'weibo': null,
 }, 'testing');
 AppRegistry.registerComponent(appName, () => App);
