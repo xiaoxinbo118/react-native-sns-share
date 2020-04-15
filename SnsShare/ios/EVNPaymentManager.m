@@ -33,7 +33,7 @@
 }
 
 - (void)pay:(EVNSnsPaymentType)type params:(NSDictionary *)params block:(void(^)(NSString *code, NSError *error))commpletion {
-  
+
   if (type == EVNSnsPaymentWeChat) {
     [self payWX:EVNSnsPaymentWeChat params:params block:commpletion];
   } else if (type == EVNSnsPaymentAlipay) {
@@ -61,16 +61,16 @@
 - (void)payWX:(EVNSnsPaymentType)type params:(NSDictionary *)params block:(void(^)(NSString *code, NSError *error))commpletion {
   self.commpletion = commpletion;
   PayReq *request = [[PayReq alloc] init];
-  
+
   request.partnerId = [params objectForKey:@"partnerId"];
   request.prepayId = [params objectForKey:@"prepayId"];
   request.package = [params objectForKey:@"package"];
   request.nonceStr = [params objectForKey:@"nonceStr"];
-  long long timestamp = [[params objectForKey:@"timestamp"] longLongValue];
+  long long timestamp = [[params objectForKey:@"timeStamp"] longLongValue];
   // todo 类型转换 如果用 floatvalue 会导致跟服务器的返回值不一致
   request.timeStamp = timestamp; //[[params objectForKey:@"timestamp"] floatValue];
   request.sign = [params objectForKey:@"sign"];
-  
+
   [[EVNWXManager defaultManager] sendReq:request completion:^(BOOL success) {
     if (!success) {
       NSError *error = [NSError errorWithDomain:@"snsShare" code:-3 userInfo:@{NSLocalizedDescriptionKey : @"check params and sign"}];
@@ -85,7 +85,7 @@
   if (!self.commpletion) {
     return;
   }
-  
+
   if ([resp isKindOfClass:[PayResp class]]) {
     NSString *code = [NSString stringWithFormat:@"%@", @(resp.errCode)];
     if (resp.errCode == 0) {
@@ -93,7 +93,7 @@
     } else {
       self.commpletion(code, [NSError errorWithDomain:@"share" code:resp.errCode userInfo:nil]);;
     }
-    
+
     self.commpletion = nil;
   }
 }

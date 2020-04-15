@@ -54,10 +54,10 @@ public class PaymentManager {
             public void run() {
                 PayTask alipay = new PayTask(activity);
                 Map<String,String> result = alipay.payV2(orderInfo,true);
-                PayResult payResult = new PayResult(result.toString());
+                // PayResult payResult = new PayResult(result.toString());
 
                 // 支付宝返回此次支付结果及加签，建议对支付宝签名信息拿签约时支付宝提供的公钥做验签
-                String resultStatus = payResult.getResultStatus();
+                String resultStatus = result.get("resultStatus"); // payResult.getResultStatus();
 
                 // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                 if (TextUtils.equals(resultStatus, "9000")) {
