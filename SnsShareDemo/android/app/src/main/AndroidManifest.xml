@@ -21,9 +21,17 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
+        <!--微信支付开始-->
+        <activity
+            android:name="com.snssharedemo.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoDisplay" />
+        <!--微信支付结束-->
         <!--微信分享开始-->
         <activity
-            android:name="com.evan.sns.share.wxapi.WXEntryActivity"
+            android:name="com.snssharedemo.wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoDisplay" />
