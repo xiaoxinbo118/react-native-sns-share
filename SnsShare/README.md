@@ -104,29 +104,58 @@ PS：未支持部分，会在后续迭代中完成。
       return packages;
     }
 ```
- #### 微信设置
- 1.AndroidManifest.xml中设置
- ```xml
-         <!--微信开始-->
-        <activity
-            android:name="com.evan.sns.share.wxapi.WXEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop"
-            android:theme="@android:style/Theme.NoDisplay" />
-        <!--微信结束-->
- ```
- 2.Project的gradle中设置
+#### 微信设置
+ 1.Android工程代码下创建 包名+wxapi/WXEntryActivity.java / WXPayEntryActivity.java继承com.evan.sns.share.wxapi.WXEntryActivity
 
- ```gradle
-allprojects {
-    repositories {
-        flatDir {
-            dirs '../../node_modules/react-native-sns-share/android/libs'
-        }
-       ...
-    }
+```java
+package com.snssharedemo.wxapi;
+
+public class WXEntryActivity extends  com.evan.sns.share.wxapi.WXEntryActivity {
+
 }
- ```
+```
+
+```java
+package com.snssharedemo.wxapi;
+
+import com.evan.sns.share.wxapi.WXEntryActivity;
+
+public class WXPayEntryActivity extends WXEntryActivity {
+
+}
+
+
+```
+
+2.AndroidManifest.xml中设置
+```xml
+       <!--微信支付开始-->
+       <activity
+           android:name="com.snssharedemo.wxapi.WXPayEntryActivity"
+           android:exported="true"
+           android:launchMode="singleTop"
+           android:theme="@android:style/Theme.NoDisplay" />
+       <!--微信支付结束-->
+       <!--微信分享开始-->
+       <activity
+           android:name="com.snssharedemo.wxapi.WXEntryActivity"
+           android:exported="true"
+           android:launchMode="singleTop"
+           android:theme="@android:style/Theme.NoDisplay" />
+       <!--微信分享结束-->
+```
+3.Project的gradle中设置
+
+```gradle
+allprojects {
+   repositories {
+       flatDir {
+           dirs '../../node_modules/react-native-sns-share/android/libs'
+       }
+      ...
+   }
+}
+```
   #### 微博设置
   1.MainActivity中重载onActivityResult，用于接收微博回调信息
  ```java
@@ -187,8 +216,9 @@ import Sns from 'react-native-sns-share'
 
 // 项目启动时，注册微信、微博信息
 Sns.snsSocial.registerApp({
-  'wechart': 'wxc9e5245993bab87d',
-  'weibo': '3590073357',
+  'wechart': 'wx11111111',
+  'weibo': '2222222',
+  'qq': '33333333',
 }, {
   'weibo': 'https://www.baidu.com',
 }, 'testing');

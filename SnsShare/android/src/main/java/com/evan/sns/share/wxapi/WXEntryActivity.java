@@ -13,4 +13,11 @@ public class WXEntryActivity  extends Activity {
         super.onCreate(savedInstanceState);
         WXManager.getInstance().handleIntent(getIntent(), this);
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        WXManager.getInstance().handleIntent(getIntent(), this);
+    }
 }
