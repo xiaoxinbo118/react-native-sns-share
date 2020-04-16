@@ -13,26 +13,26 @@ RN微信、微博、QQ及支付宝分享、授权登陆、支付插件。
 PS：未支持部分，会在后续迭代中完成。
 
  ## 一. 起步
- 
+
  1. 执行: `$ npm install --save react-native-npm-share --save`
  2. 执行: `$ react-native link react-native-sns-share`
  3. 对于您计划使用的每个平台（ios/android），请遵循相应平台的一个选项
- 
+
  ### iOS
  1. 进入ios目录
  2. 执行: `$ pod update`
- 
+
  #### 微信设置
  1. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“URL type“添加“URL scheme”为你所注册的应用程序id（如下图所示）。
  ![xcode设置](https://res.wx.qq.com/op_res/qXIS1XaeAWkQxAJeyFfJPNQUfzVWbPnyqeYUTl3Q3rW1j29j5eQn4xaUNYXErjql)
  2. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“LSApplicationQueriesSchemes“添加weixin、wechat、weixinulapi（如下图所示）。
- 
+
  ![xcode设置](http://mmbiz.qpic.cn/mmbiz_png/PiajxSqBRaEJsqKkSJGg4TLAxEIvWjtTfrHSbhE3zfbPzuuGzadu9FsWJuBNELsk1IuQucfx91ialTfpPhAF0grA/0?wx_fmt=png)
- 
+
  #### 微博设置
  1. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“URL type“添加“URL scheme”为你所注册的应用程序id
  2. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“LSApplicationQueriesSchemes“添加weibosdk、weibosdk2.5
- 
+
  #### 支付宝设置
   1. 在Xcode中，选择你的工程设置项，选中“TARGETS”一栏，在“info”标签栏的“LSApplicationQueriesSchemes“添加alipay、alipayauth
  #### QQ设置
@@ -73,11 +73,11 @@ PS：未支持部分，会在后续迭代中完成。
   }
 
   handled = [EVNQQManager.defaultManager application:application openURL:url];
-  
+
   if (handled) {
     return YES;
   }
-  
+
   return handled;
 }
 
@@ -89,7 +89,7 @@ PS：未支持部分，会在后续迭代中完成。
   [[EVNQQManager defaultManager] applicationWillEnterForeground:application];
 }
    ```
- 
+
  ### Android
  确认MainApplication，getPackages中是否已经加入RNSnsSharePackage。
  若没有加入,getPackages中加入 packages.add(new RNSnsSharePackage());
@@ -104,29 +104,58 @@ PS：未支持部分，会在后续迭代中完成。
       return packages;
     }
 ```
- #### 微信设置
- 1.AndroidManifest.xml中设置
- ```xml
-         <!--微信开始-->
-        <activity
-            android:name="com.evan.sns.share.wxapi.WXEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop"
-            android:theme="@android:style/Theme.NoDisplay" />
-        <!--微信结束-->
- ```
- 2.Project的gradle中设置
- 
- ```gradle 
-allprojects {
-    repositories {
-        flatDir {
-            dirs '../../node_modules/react-native-sns-share/android/libs'
-        }
-       ...
-    }
+#### 微信设置
+ 1.Android工程代码下创建 包名+wxapi/WXEntryActivity.java / WXPayEntryActivity.java继承com.evan.sns.share.wxapi.WXEntryActivity
+
+```java
+package com.snssharedemo.wxapi;
+
+public class WXEntryActivity extends  com.evan.sns.share.wxapi.WXEntryActivity {
+
 }
- ```
+```
+
+```java
+package com.snssharedemo.wxapi;
+
+import com.evan.sns.share.wxapi.WXEntryActivity;
+
+public class WXPayEntryActivity extends WXEntryActivity {
+
+}
+
+
+```
+
+2.AndroidManifest.xml中设置
+```xml
+       <!--微信支付开始-->
+       <activity
+           android:name="com.snssharedemo.wxapi.WXPayEntryActivity"
+           android:exported="true"
+           android:launchMode="singleTop"
+           android:theme="@android:style/Theme.NoDisplay" />
+       <!--微信支付结束-->
+       <!--微信分享开始-->
+       <activity
+           android:name="com.snssharedemo.wxapi.WXEntryActivity"
+           android:exported="true"
+           android:launchMode="singleTop"
+           android:theme="@android:style/Theme.NoDisplay" />
+       <!--微信分享结束-->
+```
+3.Project的gradle中设置
+
+```gradle
+allprojects {
+   repositories {
+       flatDir {
+           dirs '../../node_modules/react-native-sns-share/android/libs'
+       }
+      ...
+   }
+}
+```
   #### 微博设置
   1.MainActivity中重载onActivityResult，用于接收微博回调信息
  ```java
@@ -139,7 +168,7 @@ allprojects {
 
  ```
  2.主build.gradle中添加
-  ```gradle 
+  ```gradle
  allprojects {
     repositories {
         ...
@@ -180,7 +209,7 @@ allprojects {
 
  ```
  ## 二. 使用
- 
+
  ### 1. 注册App
  ```js
 import Sns from 'react-native-sns-share'
@@ -197,9 +226,9 @@ Sns.snsSocial.registerApp({
  ### 2. 分享调用
  ```js
  import Sns from 'src/react-native-sns-share'
- 
+
  const types = Sns.snsShare.TYPES;
- 
+
  Sns.snsShare.share({
   webpageUrl: 'https://www.baidu.com',
   title: '分享一下',
@@ -213,20 +242,20 @@ Sns.snsSocial.registerApp({
 .catch((error) => {
     console.log(error);
   })
-      
+
  ```
 types常量表
 
-|    变量         |  含义        | 
+|    变量         |  含义        |
 | ----------- | ----------- |
-|WECHAT_SESSION| 微信好友          | 
-|WECHAT_TIMELINE| 微信朋友圈          | 
-|QQ_SESSION| QQ好友          | 
-|WEIBO| 微博          | 
+|WECHAT_SESSION| 微信好友          |
+|WECHAT_TIMELINE| 微信朋友圈          |
+|QQ_SESSION| QQ好友          |
+|WEIBO| 微博          |
  ### 3. 支付调用
  ```js
     import Sns from 'react-native-sns-share'
-    
+
     let params， type = Sns.snsPayment.TYPES.ALIPAY;
 
     if (type == Sns.snsPayment.TYPES.ALIPAY) {
@@ -246,7 +275,7 @@ types常量表
         sign: '',
       }
     }
-    
+
     Sns.snsPayment.pay(type, params)
     .then(() => {
         console.log('支付成功');
@@ -258,15 +287,15 @@ types常量表
  ```
 types常量表
 
-|    变量         |  含义        | 
+|    变量         |  含义        |
 | ----------- | ----------- |
-|WECHAT| 微信支付          | 
-|ALIPAY| 支付宝支付          | 
- 
+|WECHAT| 微信支付          |
+|ALIPAY| 支付宝支付          |
+
  ### 4. 授权登录调用
  ```js
     import Sns from 'react-native-sns-share'
-    
+
     let params, type
     if (type == Sns.snsOAuth.TYPES.ALIPAY) {
       // authLink 根据支付宝文档，后台做拼装加签
@@ -288,15 +317,14 @@ types常量表
  ```
  types常量表
 
-|    变量         |  含义        | 
+|    变量         |  含义        |
 | ----------- | ----------- |
-|WECHAT| 微信          | 
-|ALIPAY| 支付宝          | 
-|WEIBO| 微博          | 
-|QQ| 微博          | 
+|WECHAT| 微信          |
+|ALIPAY| 支付宝          |
+|WEIBO| 微博          |
+|QQ| 微博          |
 
 
 
 
 <div align='center'><img src="http://m.qpic.cn/psb?/V11WlCWW0HY4Ms/8Z4PimX9K4gJJ4n5.HZ7L0y*NiG4ViSu*LpQTcR2n8o!/b/dAYBAAAAAAAA&bo=OAQ4BAAAAAARBzA!&rf=viewer_4" width="300" height="300" /></div>
-
