@@ -9,6 +9,8 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 
 public class WXManager implements IWXAPIEventHandler {
     protected IWXAPI mIWXAPI;
@@ -59,17 +61,36 @@ public class WXManager implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
-        if (mHandler != null) {
-            switch (resp.errCode) {
-                case BaseResp.ErrCode.ERR_OK: {
-                    mHandler.onSuccess("");
-                }
-                break;
-                default:
-                    mHandler.onError(resp.errCode, resp.errStr);
-                    break;
-            }
-            mHandler = null;
+      if (mHandler != null) {
+          if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
+              //授权
+              switch (resp.errCode) {
+                  case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                      ///< 用户拒绝授权
+                  case BaseResp.ErrCode.ERR_USER_CANCEL:
+                      ///< 用户取消
+                      String message = "取消了";
+                      mHandler.onError(resp.errCode, message);
+                      break;
+                  case BaseResp.ErrCode.ERR_OK:
+                      String code = ((SendAuth.Resp) resp).code;
+                      mHandler.onSuccess(code);
+                      break;
+              }
+          } else if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX
+            || resp.getType() == ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX) {
+
+              switch (resp.errCode) {
+                  case BaseResp.ErrCode.ERR_OK:
+                      mHandler.onSuccess("");
+                      break;
+                  default:
+                      mHandler.onError(resp.errCode, resp.errStr);
+                      break;
+              }
+          }
+
+          mHandler = null;
         }
 
         if (mEntryActivity != null) {
