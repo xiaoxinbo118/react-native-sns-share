@@ -50,8 +50,8 @@ public class WXManager implements IWXAPIEventHandler {
     }
 
     public void handleIntent(Intent intent, Activity entryActivity) {
-        mIWXAPI.handleIntent(intent, this);
         mEntryActivity = entryActivity;
+        mIWXAPI.handleIntent(intent, this);
     }
 
     @Override
