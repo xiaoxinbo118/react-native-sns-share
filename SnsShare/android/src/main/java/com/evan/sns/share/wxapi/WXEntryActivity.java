@@ -2,7 +2,7 @@ package com.evan.sns.share.wxapi;
 
 import android.app.Activity;
 import android.os.Bundle;
-
+import android.content.Intent;
 import androidx.annotation.Nullable;
 
 import com.evan.sns.share.WXManager;
