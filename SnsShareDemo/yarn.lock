@@ -2992,9 +2992,9 @@ getpass@^0.1.1:
     assert-plus "^1.0.0"
 
 glob-parent@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npmjs.org/glob-parent/-/glob-parent-5.0.0.tgz#1dc99f0f39b006d3e92c2c284068382f0c20e954"
-  integrity sha512-Z2RwiujPRGluePM6j699ktJYxmPpJKCfpGA13jz2hmFZC7gKetzrWvg5KN3+OsIFmydGyZ1AVwERCq1w/ZZwRg==
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
+  integrity sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==
   dependencies:
     is-glob "^4.0.1"
 
@@ -3384,7 +3384,7 @@ is-extendable@^1.0.1:
 
 is-extglob@^2.1.1:
   version "2.1.1"
-  resolved "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
+  resolved "https://registry.yarnpkg.com/is-extglob/-/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
   integrity sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=
 
 is-fullwidth-code-point@^1.0.0:
@@ -5406,10 +5406,10 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
   integrity sha512-tJBzzzIgnnRfEm046qRcURvwQnZVXmuCbscxUO5RWrGTXpon2d4c8mI0D8WE6ydVIm29JiLB6+RslkIvym9Rjw==
 
-react-native-sns-share@1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/react-native-sns-share/-/react-native-sns-share-1.2.6.tgz#72d7183f20b5fc334c2c072ea9674c972db5289c"
-  integrity sha512-lj8NBmr9NU4A1bsR8i+pD1r7Qa3AFJwLUzfKK0Eic4dup0ANa1HaUHZUwfyYWt+UkTR71IbZR+V+4JyoqH2Uqg==
+react-native-sns-share@1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/react-native-sns-share/-/react-native-sns-share-1.3.5.tgz#083a13b5cfc8a2b736be54853c8b575d08626e9f"
+  integrity sha512-3pWBXp5/L6AaeEU1aHSBhyxjIDw9YBn+SUiJndZcPn8yWp0p4cWT27FCb54BTlz5bfl4sACvz1x87XTTSufoXw==
 
 react-native@0.60.5:
   version "0.60.5"
